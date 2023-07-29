@@ -1,5 +1,9 @@
 import { Dispatch, SetStateAction } from 'react'
 import styles from './header.module.css'
+import DevLinksLogoSm from '../../assets/DevLinksLogoSm'
+import PreviewIcon from '../../assets/PreviewIcon'
+import LinksIconHeader from '../../assets/LinksIconHeader'
+import ProfileIconHeader from '../../assets/ProfileIconHeader'
 
 export default function Header({
     page,
@@ -11,7 +15,51 @@ export default function Header({
     return (
         <header className={styles.header}>
 
-            header {page}
+            <DevLinksLogoSm />
+
+            <nav>
+
+                <button
+                    className={styles.nav_btn}
+                    data-active={page === 'links'}
+                    onClick={() => setPage('links')}
+                >
+
+                    <LinksIconHeader />
+
+                    <span>
+                        Links
+                    </span>
+
+                </button>
+
+                <button
+                    className={styles.nav_btn}
+                    data-active={page === 'profile'}
+                    onClick={() => setPage('profile')}
+                >
+
+                    <ProfileIconHeader />
+
+                    <span>
+                        Profile Details
+                    </span>
+
+                </button>
+
+            </nav>
+
+            <button
+                className={styles.preview_btn}
+            >
+
+                <PreviewIcon />
+
+                <span>
+                    Preview
+                </span>
+
+            </button>
 
         </header>
     )
