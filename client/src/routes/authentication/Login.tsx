@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import DevlinksLogoLg from "../../assets/DevlinksLogoLg"
 import styles from './authentication.module.css'
+import Button from "../../components/button/Button"
 
 export default function Login() {
     return (
@@ -36,9 +37,9 @@ export default function Login() {
                     <input type="password" name="password" id="password" required />
                 </label>
 
-                <button>
+                <Button>
                     Login
-                </button>
+                </Button>
 
             </form>
 

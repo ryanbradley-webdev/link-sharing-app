@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom"
 import DevlinksLogoLg from "../../assets/DevlinksLogoLg"
 import styles from './authentication.module.css'
+import Button from "../../components/button/Button"
 
 export default function Signup() {
     return (
@@ -47,9 +48,9 @@ export default function Signup() {
                     Password must contain at least 8 characters
                 </p>
 
-                <button>
+                <Button>
                     Create new account
-                </button>
+                </Button>
 
             </form>
 

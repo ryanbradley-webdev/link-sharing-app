@@ -23,6 +23,7 @@
   --font-head-sm: bold 1rem/150% 'Instrument Sans', Arial, sans-serif;
   --font-body-md: 1rem/150% 'Instrument Sans', Arial, sans-serif;
   --font-body-sm: 0.75rem/150% 'Instrument Sans', Arial, sans-serif;
+  --border-radius: 8px;
 }
 
 body {

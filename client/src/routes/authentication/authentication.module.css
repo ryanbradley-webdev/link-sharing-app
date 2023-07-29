@@ -2,10 +2,6 @@
     padding: 32px;
 }
 
-.main a {
-    text-decoration: none;
-}
-
 @media screen and (max-width: 480px) {
     .main a {
         display: block;
@@ -29,8 +25,4 @@
 .form {
     row-gap: 24px;
     margin-bottom: 24px;
-}
-
-.form label {
-    font: var(--font-body-sm);
 }

@@ -1,3 +1,15 @@
-button {
-    font: inherit;
+a {
+    text-decoration: none;
+    color: var(--clr-purple-pri);
+}
+
+label {
+    font: var(--font-body-sm);
+    color: var(--clr-dark-grey);
+}
+
+input {
+    height: 48px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--clr-border);
 }
