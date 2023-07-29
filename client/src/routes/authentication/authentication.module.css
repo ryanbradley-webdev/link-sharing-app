@@ -1,6 +1,34 @@
+.main {
+    padding: 32px;
+}
+
+.main a {
+    text-decoration: none;
+}
+
+@media screen and (max-width: 480px) {
+    .main a {
+        display: block;
+    }
+}
+
+.header {
+    margin-top: 64px;
+    margin-bottom: 40px;
+}
+
+.header p {
+    margin-top: 8px;
+}
+
 .form,
 .form label {
     display: grid;
+}
+
+.form {
+    row-gap: 24px;
+    margin-bottom: 24px;
 }
 
 .form label {

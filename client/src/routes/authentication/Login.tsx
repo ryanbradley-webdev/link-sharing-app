@@ -8,7 +8,7 @@ export default function Login() {
 
             <DevlinksLogoLg />
 
-            <div>
+            <div className={styles.header}>
 
                 <h2>
                     Login

@@ -8,7 +8,7 @@ export default function Signup() {
 
             <DevlinksLogoLg />
 
-            <div>
+            <div className={styles.header}>
 
                 <h2>
                     Create Account
