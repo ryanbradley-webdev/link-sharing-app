@@ -26,3 +26,7 @@
     row-gap: 24px;
     margin-bottom: 24px;
 }
+
+.password_reqs {
+    font: var(--font-body-sm);
+}

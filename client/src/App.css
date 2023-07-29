@@ -4,12 +4,30 @@ a {
 }
 
 label {
+    position: relative;
     font: var(--font-body-sm);
     color: var(--clr-dark-grey);
 }
 
+label svg {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+}
+
 input {
+    font-family: inherit;
+    color: var(--clr-dark-grey);
+    padding-left: 44px;
     height: 48px;
     border-radius: var(--border-radius);
     border: 1px solid var(--clr-border);
+    transition: 0.3s ease;
+    caret-color: var(--clr-purple-pri);
+}
+
+input:is(:focus, :hover) {
+    outline: none;
+    border: 1px solid var(--clr-purple-pri);
+    box-shadow: 0 0 32px var(--clr-purple-shadow);
 }

@@ -2,6 +2,8 @@ import { Link } from "react-router-dom"
 import DevlinksLogoLg from "../../assets/DevlinksLogoLg"
 import styles from './authentication.module.css'
 import Button from "../../components/button/Button"
+import EmailIcon from "../../assets/EmailIcon"
+import LockIcon from "../../assets/LockIcon"
 
 export default function Login() {
     return (
@@ -24,17 +26,27 @@ export default function Login() {
             <form action="" className={styles.form}>
 
                 <label htmlFor="email">
+
+                    <EmailIcon />
+
                     <span>
                         Email address
                     </span>
+
                     <input type="email" name="email" id="email" required />
+
                 </label>
 
                 <label htmlFor="password">
+
+                    <LockIcon />
+
                     <span>
                         Password
                     </span>
+
                     <input type="password" name="password" id="password" required />
+
                 </label>
 
                 <Button>
