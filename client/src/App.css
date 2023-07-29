@@ -26,6 +26,11 @@ input {
     caret-color: var(--clr-purple-pri);
 }
 
+input::placeholder {
+    color: var(--clr-dark-grey);
+    opacity: 0.5;
+}
+
 input:is(:focus, :hover) {
     outline: none;
     border: 1px solid var(--clr-purple-pri);

@@ -1,11 +1,16 @@
+import { useRef } from "react"
 import { Link } from "react-router-dom"
 import DevlinksLogoLg from "../../assets/DevlinksLogoLg"
-import styles from './authentication.module.css'
 import Button from "../../components/button/Button"
 import EmailIcon from "../../assets/EmailIcon"
 import LockIcon from "../../assets/LockIcon"
+import styles from './authentication.module.css'
 
 export default function Signup() {
+    const emailRef = useRef<HTMLInputElement>(null)
+    const passwordRef = useRef<HTMLInputElement>(null)
+    const passwordConfirmRef = useRef<HTMLInputElement>(null)
+
     return (
         <main className={styles.main}>
 
@@ -33,7 +38,14 @@ export default function Signup() {
                         Email address
                     </span>
                     
-                    <input type="email" name="email" id="email" required />
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        ref={emailRef}
+                        placeholder="e.g. alex@email.com"
+                        required
+                    />
                     
                 </label>
 
@@ -45,7 +57,14 @@ export default function Signup() {
                         Create password
                     </span>
                     
-                    <input type="password" name="create-password" id="create-password" required />
+                    <input
+                        type="password"
+                        name="create-password"
+                        id="create-password"
+                        ref={passwordRef}
+                        placeholder="At least 8 characters"
+                        required
+                    />
                     
                 </label>
 
@@ -57,7 +76,14 @@ export default function Signup() {
                         Confirm password
                     </span>
                     
-                    <input type="password" name="confirm-password" id="confirm-password" required />
+                    <input
+                        type="password"
+                        name="confirm-password"
+                        id="confirm-password"
+                        ref={passwordConfirmRef}
+                        placeholder="At least 8 characters"
+                        required
+                    />
                     
                 </label>
 
