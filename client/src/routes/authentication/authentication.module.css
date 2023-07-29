@@ -1,0 +1,8 @@
+.form,
+.form label {
+    display: grid;
+}
+
+.form label {
+    font: var(--font-body-sm);
+}

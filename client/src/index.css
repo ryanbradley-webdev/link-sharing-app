@@ -34,3 +34,8 @@ h1 {
   font: var(--font-head-lg);
   color: var(--clr-dark-grey);
 }
+
+h2 {
+  font: var(--font-head-md);
+  color: var(--clr-dark-grey);
+}
