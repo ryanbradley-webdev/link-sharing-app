@@ -1,0 +1,36 @@
+@import url(https://fonts.googleapis.com/css?family=Instrument+Sans:regular,500,600,700,italic,500italic,600italic,700italic);
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --clr-light-grey: #737373;
+  --clr-dark-grey: #333;
+  --clr-white-pri: #FFF;
+  --clr-white-sec: #FAFAFA;
+  --clr-border: #D9D9D9;
+  --clr-purple-pri: #633CFF;
+  --clr-purple-sec: #BEADFF;
+  --clr-purple-ter: #EFEBFF;
+  --clr-red: #FF3939;
+  --font-head-lg: bold 4rem/100% 'Instrument Sans', Arial, sans-serif;
+  --font-head-md: bold 2rem/150% 'Instrument Sans', Arial, sans-serif;
+  --font-head-sm: bold 1rem/150% 'Instrument Sans', Arial, sans-serif;
+  --font-body-md: 1rem/150% 'Instrument Sans', Arial, sans-serif;
+  --font-body-sm: 0.75rem/150% 'Instrument Sans', Arial, sans-serif;
+}
+
+body {
+  font: var(--font-body-md);
+  color: var(--clr-light-grey);
+}
+
+h1 {
+  font: var(--font-head-lg);
+  color: var(--clr-dark-grey);
+}

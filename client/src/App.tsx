@@ -4,7 +4,7 @@ import './App.css'
 function App() {
   return (
     <Routes>
-      <Route path='/' element={'Hello'} />
+      <Route path='/' element={<h1>Hello</h1>} />
     </Routes>
   )
 }
