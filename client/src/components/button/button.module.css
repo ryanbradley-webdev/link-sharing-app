@@ -1,8 +1,18 @@
-.button {
+.btn,
+.alt_btn {
     font: var(--font-head-sm);
-    color: var(--clr-white-pri);
     height: 46px;
+    border-radius: var(--border-radius);
+}
+
+.btn {
+    color: var(--clr-white-pri);
     background-color: var(--clr-purple-pri);
     border: none;
-    border-radius: var(--border-radius);
+}
+
+.alt_btn {
+    color: var(--clr-purple-pri);
+    background-color: var(--clr-white-pri);
+    border: 1px solid var(--clr-purple-pri);
 }

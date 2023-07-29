@@ -2,8 +2,8 @@ import { Routes, Route } from 'react-router-dom'
 import Home from './routes/home/Home'
 import Login from './routes/authentication/Login'
 import Signup from './routes/authentication/Signup'
-import './App.css'
 import AuthProvider from './contexts/AuthContext'
+import './App.css'
 
 function App() {
   return (
