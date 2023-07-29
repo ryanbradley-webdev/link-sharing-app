@@ -3,14 +3,17 @@ import Home from './routes/home/Home'
 import Login from './routes/authentication/Login'
 import Signup from './routes/authentication/Signup'
 import './App.css'
+import AuthProvider from './contexts/AuthContext'
 
 function App() {
   return (
-    <Routes>
-      <Route path='/' element={<Home />} />
-      <Route path='login' element={<Login />} />
-      <Route path='signup' element={<Signup />} />
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+      </Routes>
+    </AuthProvider>
   )
 }
 
