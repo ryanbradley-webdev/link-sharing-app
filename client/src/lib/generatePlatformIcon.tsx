@@ -22,7 +22,7 @@ export const generatePlatformIcon = (platform: string, color?: boolean) => {
             return <GitHubIcon color={color} />
 
         case PLATFORMS.FRONTEND_MENTOR:
-            return <FrontendMentorIcon />
+            return <FrontendMentorIcon color={color} />
 
         case PLATFORMS.TWITTER:
             return <TwitterIcon color={color} />
