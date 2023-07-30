@@ -15,7 +15,7 @@ export default function Profile() {
     } = useContext(DataContext)
 
     return (
-        <section>
+        <section className={styles.section}>
             
             <div className={styles.heading}>
 

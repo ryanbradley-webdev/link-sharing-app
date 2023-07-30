@@ -6,9 +6,30 @@
     min-height: calc(100dvh - 185px);
 }
 
-@media screen and (max-width: 1000px) {
+.snapshot {
+    position: relative;
+    display: none;
+}
+
+.snapshot > svg:first-child {
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@media screen and (min-width: 1000px) {
+    .main {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+    }
+    
+    .section {
+        padding: 40px;
+    }
+
     .snapshot {
-        display: none;
+        display: block;
     }
 }
 

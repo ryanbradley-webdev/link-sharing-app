@@ -9,7 +9,7 @@ export default function Links() {
     const { links, addLink } = useContext(DataContext)
 
     return (
-        <section>
+        <section className={styles.section}>
 
             <div className={styles.heading}>
 

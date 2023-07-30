@@ -6,9 +6,11 @@ import { PLATFORMS } from '../../lib/platforms'
 import styles from './previewLink.module.css'
 
 export default function PreviewLink({
-    link
+    link,
+    bare
 }: {
     link: Link
+    bare?: boolean
 }) {
     const isFrontEndMentor = link.platform === PLATFORMS.FRONTEND_MENTOR
 
@@ -23,7 +25,8 @@ export default function PreviewLink({
                 className={styles.button}
                 style={{
                     backgroundColor: generateBackgroundColor(link.platform),
-                    border: isFrontEndMentor ? '1px solid var(--clr-border)' : 'none'
+                    border: isFrontEndMentor ? '1px solid var(--clr-border)' : 'none',
+                    height: bare ? '44px' : '56px'
                 }}
             >
 

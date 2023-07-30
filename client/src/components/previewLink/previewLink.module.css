@@ -3,7 +3,6 @@
     align-items: center;
     gap: 8px;
     width: 237px;
-    height: 56px;
     padding: 16px;
     border-radius: var(--border-radius);
 }

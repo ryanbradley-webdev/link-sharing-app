@@ -6,6 +6,8 @@ import Footer from '../../components/footer/Footer'
 import Links from './components/Links'
 import Profile from './components/Profile'
 import styles from './home.module.css'
+import ProfilePreview from '../../components/profilePreview/ProfilePreview'
+import Phone from '../../assets/Phone'
 
 export default function Home() {
     const { user } = useContext(AuthContext)
@@ -32,7 +34,11 @@ export default function Home() {
 
                     <section className={styles.snapshot}>
 
+                        <Phone />
 
+                        <ProfilePreview
+                            bare
+                        />
 
                     </section>
 
