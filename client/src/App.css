@@ -19,7 +19,7 @@ label svg {
 input,
 select {
     padding-left: 44px;
-    font-family: inherit;
+    font: var(--font-body-md);
     color: var(--clr-dark-grey);
     height: 48px;
     border: 1px solid var(--clr-border);
@@ -36,8 +36,19 @@ input::placeholder {
     opacity: 0.5;
 }
 
-input:is(:focus, :hover) {
+:where(input, select):is(:focus, :hover) {
     outline: none;
     border: 1px solid var(--clr-purple-pri);
     box-shadow: 0 0 32px var(--clr-purple-shadow);
+}
+
+select {
+    appearance: none;
+}
+
+label:has(select)::after {
+    content: url('/icon-chevron-down.svg');
+    position: absolute;
+    bottom: 13px;
+    right: 16px;
 }

@@ -1,6 +1,8 @@
+import styles from '../home.module.css'
+
 export default function Profile() {
     return (
-        <main>
+        <main className={styles.main}>
             
             Profile
             

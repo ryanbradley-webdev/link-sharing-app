@@ -75,7 +75,14 @@ export default function EditableLink({
             ref={platformRef}
           >
             {Object.values(PLATFORMS).map(platform => (
-              <option key={crypto.randomUUID()} value={platform}>{platform}</option>
+
+              <option
+                key={crypto.randomUUID()}
+                value={platform}
+              >
+                {platform}
+              </option>
+              
             ))}
           </select>
 
