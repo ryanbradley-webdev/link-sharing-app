@@ -3,6 +3,7 @@ import Button from '../../../components/button/Button'
 import styles from '../home.module.css'
 import NoLinks from './NoLinks'
 import EditableLink from '../../../components/editableLink/EditableLink'
+import { PLATFORMS } from '../../../lib/platforms'
 
 export type Link = {
     id: string,
@@ -11,7 +12,7 @@ export type Link = {
 }
 
 const blankLink = {
-    platform: '',
+    platform: PLATFORMS.GITHUB,
     linkUrl: ''
 }
 

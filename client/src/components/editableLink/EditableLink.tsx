@@ -4,6 +4,7 @@ import LinkIcon from '../../assets/LinkIcon'
 import { generatePlatformIcon } from '../../lib/generatePlatformIcon'
 import { Link } from '../../routes/home/components/Links'
 import styles from './editableLink.module.css'
+import { PLATFORMS } from '../../lib/platforms'
 
 export default function EditableLink({
   index,
@@ -70,9 +71,12 @@ export default function EditableLink({
             name={`platform-${id}`}
             id={`platform-${id}`}
             onChange={updateLink}
+            value={platform}
             ref={platformRef}
           >
-            <option value="GitHub">GitHub</option>
+            {Object.values(PLATFORMS).map(platform => (
+              <option key={crypto.randomUUID()} value={platform}>{platform}</option>
+            ))}
           </select>
 
         </label>
