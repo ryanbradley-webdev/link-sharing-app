@@ -5,6 +5,7 @@ a {
 
 label {
     position: relative;
+    display: grid;
     font: var(--font-body-sm);
     color: var(--clr-dark-grey);
 }
@@ -15,13 +16,17 @@ label svg {
     bottom: 16px;
 }
 
-input {
+input,
+select {
+    padding-left: 44px;
     font-family: inherit;
     color: var(--clr-dark-grey);
-    padding-left: 44px;
     height: 48px;
-    border-radius: var(--border-radius);
     border: 1px solid var(--clr-border);
+    border-radius: var(--border-radius);
+}
+
+input {
     transition: 0.3s ease;
     caret-color: var(--clr-purple-pri);
 }

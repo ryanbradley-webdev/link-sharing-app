@@ -1,0 +1,25 @@
+.link_wrapper {
+    padding: 20px;
+}
+
+.link_head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    font: var(--font-head-sm);
+}
+
+.link_head button:last-child {
+    margin-left: auto;
+    font: var(--font-body-md);
+    color: var(--clr-light-grey);
+    background-color: transparent;
+    border: none;
+}
+
+.link_inputs {
+    display: grid;
+    row-gap: 8px;
+    margin-top: 8px;
+}

@@ -2,9 +2,35 @@ import { useState } from 'react'
 import Button from '../../../components/button/Button'
 import styles from '../home.module.css'
 import NoLinks from './NoLinks'
+import EditableLink from '../../../components/editableLink/EditableLink'
+
+export type Link = {
+    id: string,
+    platform: string
+    linkUrl: string
+}
+
+const blankLink = {
+    platform: '',
+    linkUrl: ''
+}
 
 export default function Links() {
-    const [links, setLinks] = useState([])
+    const [links, setLinks] = useState<Link[]>([])
+
+    const addLink = () => {
+        setLinks(prevLinks => ([
+            ...prevLinks,
+            {
+                ...blankLink,
+                id: crypto.randomUUID()
+            }
+        ]))
+    }
+
+    const removeLink = (id: string) => {
+        setLinks(prevLinks => prevLinks.filter(link => link.id !== id))
+    }
 
     return (
         <main className={styles.main}>
@@ -29,7 +55,7 @@ export default function Links() {
 
                     <Button
                         alt
-                        onClick={undefined}
+                        onClick={addLink}
                     >
                         &#43; Add new link
                     </Button>
@@ -40,7 +66,15 @@ export default function Links() {
 
                     {
                         links?.length > 0 ? (
-                            links.map(link => <p key={crypto.randomUUID()}>{link}</p>)
+                            links.map((link, idx) => (
+                                <EditableLink
+                                    key={link.id}
+                                    index={idx}
+                                    removeLink={removeLink}
+                                    setLinks={setLinks}
+                                    { ...link }
+                                />
+                            ))
                         ) : (
                             <NoLinks />
                         )

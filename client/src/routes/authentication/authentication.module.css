@@ -17,8 +17,7 @@
     margin-top: 8px;
 }
 
-.form,
-.form label {
+.form {
     display: grid;
 }
 
