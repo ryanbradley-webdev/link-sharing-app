@@ -1,8 +1,25 @@
 .btn_div {
     display: flex;
+    justify-content: space-between;
     gap: 16px;
     padding-block: 16px;
     padding-inline: 24px;
+}
+
+@media screen and (min-width: 501px) {
+    .btn_div_wrapper {
+        padding: 24px;
+    }
+
+    .btn_div {
+        background-color: var(--clr-white-pri);
+        border-radius: 12px;
+    }
+
+    .btn_div button {
+        width: fit-content;
+        padding-inline: 27px;
+    }
 }
 
 .background {
@@ -36,6 +53,7 @@
     .preview {
         padding-block: 48px;
         padding-inline: 56px;
+        box-shadow: 0 0 32px #0000001a;
     }
 }
 

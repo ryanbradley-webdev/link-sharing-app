@@ -5,7 +5,14 @@ import { DataContext } from '../../../contexts/DataContext'
 import styles from '../home.module.css'
 
 export default function Profile() {
-    const { userData, updateFirstName, updateLastName, updateEmail } = useContext(DataContext)
+    const {
+        userData,
+        uploadedImg,
+        updateFirstName,
+        updateLastName,
+        updateEmail,
+        previewImg
+    } = useContext(DataContext)
 
     return (
         <section>
@@ -30,11 +37,24 @@ export default function Profile() {
                         Profile Picture
                     </span>
 
-                    <div>
+                    <div className={styles.img_container}>
 
-                        <input type="file" name="image" id="image" />
+                        {
+                            (uploadedImg || userData.image) && (
+                                <img src={uploadedImg || userData.image} alt="" />
+                            )
+                        }
 
-                        <div className={styles.img_upload}>
+                        <input
+                            type="file"
+                            name="image"
+                            id="image"
+                            onChange={previewImg}
+                        />
+
+                        <div
+                            className={`${styles.img_upload} ${(uploadedImg || userData.image) ? styles.img_upload_hidden : ''}`}
+                        >
 
                             <ImageIcon />
 

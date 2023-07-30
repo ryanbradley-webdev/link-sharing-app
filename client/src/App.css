@@ -3,6 +3,11 @@ a {
     color: var(--clr-purple-pri);
 }
 
+button,
+select {
+    cursor: pointer;
+}
+
 label {
     position: relative;
     display: grid;

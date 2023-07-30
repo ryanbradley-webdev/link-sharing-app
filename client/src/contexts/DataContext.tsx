@@ -4,12 +4,14 @@ import { PLATFORMS } from '../lib/platforms'
 type DataContext = {
     links: Link[]
     userData: UserData
+    uploadedImg: string
     addLink: () => void
     removeLink: (id: string) => void
     updateLink: (updatedLink: Link) => void
     updateFirstName: (newName: string) => void
     updateLastName: (newName: string) => void
     updateEmail: (newEmail: string) => void
+    previewImg: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export type Link = {
@@ -42,6 +44,7 @@ export const DataContext = createContext({} as DataContext)
 export default function DataProvider({ children }: { children: ReactNode }) {
     const [links, setLinks] = useState<Link[]>([])
     const [userData, setUserData] = useState<UserData>(blankUser)
+    const [uploadedImg, setUploadedImg] = useState<string>('')
 
     const addLink = () => {
         setLinks(prevLinks => ([
@@ -88,15 +91,28 @@ export default function DataProvider({ children }: { children: ReactNode }) {
         }))
     }
 
+    const previewImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const images = e.target.files
+
+        if (!images || images.length === 0) return
+
+        const newImg = images[images.length - 1]
+        const imgSrc = URL.createObjectURL(newImg)
+
+        setUploadedImg(imgSrc)
+    }
+
     const value = {
         links,
         userData,
+        uploadedImg,
         addLink,
         removeLink,
         updateLink,
         updateFirstName,
         updateLastName,
-        updateEmail
+        updateEmail,
+        previewImg
     }
 
     return (

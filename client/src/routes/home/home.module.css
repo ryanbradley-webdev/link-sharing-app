@@ -44,6 +44,15 @@
     border-top: 1px solid var(--clr-border);
 }
 
+@media screen and (min-width: 501px) {
+    .save_btn_container button {
+        display: block;
+        width: 91px;
+        margin-left: auto;
+        margin-right: 24px;
+    }
+}
+
 .profile_pic,
 .profile_details {
     padding: 20px;
@@ -62,13 +71,21 @@
     font: var(--font-body-md);
 }
 
-.profile_pic div:has(input) {
+.img_container {
+    position: relative;
     height: 193px;
     width: 193px;
     background-color: var(--clr-purple-ter);
     border-radius: 12px;
     margin-top: 16px;
     margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.img_container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }
 
 .profile_pic input {
@@ -76,17 +93,41 @@
 }
 
 .img_upload {
+    position: absolute;
+    inset: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 8px;
-    height: 100%;
+    cursor: pointer;
+}
+
+.img_upload_hidden {
+    opacity: 0;
+    background-color: #00000080;
+    transition: opacity 0.2s ease;
+}
+
+.img_upload_hidden:is(:hover, :focus) {
+    opacity: 1;
+}
+
+.img_upload svg {
+    fill: var(--clr-purple-pri);
 }
 
 .img_upload span {
     font: var(--font-head-sm);
     color: var(--clr-purple-pri);
+}
+
+.img_upload_hidden svg {
+    fill: var(--clr-white-pri);
+}
+
+.img_upload_hidden span {
+    color: var(--clr-white-pri);
 }
 
 .profile_details {

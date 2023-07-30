@@ -16,20 +16,24 @@ export default function Preview() {
 
             <div className={styles.background}></div>
             
-            <section className={styles.btn_div}>
+            <div className={styles.btn_div_wrapper}>
 
-                <Button
-                    alt
-                    onClick={() => navigate(-1)}
-                >
-                    Back to Editor
-                </Button>
+                <section className={styles.btn_div}>
 
-                <Button>
-                    Share Link
-                </Button>
+                    <Button
+                        alt
+                        onClick={() => navigate(-1)}
+                    >
+                        Back to Editor
+                    </Button>
 
-            </section>
+                    <Button>
+                        Share Link
+                    </Button>
+
+                </section>
+
+            </div>
 
             <section className={styles.preview}>
 
