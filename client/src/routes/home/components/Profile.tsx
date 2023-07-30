@@ -1,8 +1,12 @@
+import { useContext } from 'react'
 import ImageIcon from '../../../assets/ImageIcon'
 import Button from '../../../components/button/Button'
+import { DataContext } from '../../../contexts/DataContext'
 import styles from '../home.module.css'
 
 export default function Profile() {
+    const { userData, updateFirstName, updateLastName, updateEmail } = useContext(DataContext)
+
     return (
         <section>
             
@@ -63,6 +67,8 @@ export default function Profile() {
                         name="first-name"
                         id="first-name"
                         placeholder='e.g. John'
+                        value={userData.firstName}
+                        onChange={e => updateFirstName(e.target.value)}
                         required
                     />
 
@@ -79,6 +85,8 @@ export default function Profile() {
                         name="last-name"
                         id="last-name"
                         placeholder='e.g. Appleseed'
+                        value={userData.lastName}
+                        onChange={e => updateLastName(e.target.value)}
                         required
                     />
 
@@ -95,6 +103,8 @@ export default function Profile() {
                         name="email"
                         id="email"
                         placeholder='e.g. email@example.com'
+                        value={userData.email}
+                        onChange={e => updateEmail(e.target.value)}
                         required
                     />
 

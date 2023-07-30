@@ -1,7 +1,10 @@
+import { useNavigate } from 'react-router-dom'
 import Button from '../../components/button/Button'
 import styles from './preview.module.css'
 
 export default function Preview() {
+    const navigate = useNavigate()
+
     return (
         <main className={styles.main}>
             
@@ -9,6 +12,7 @@ export default function Preview() {
 
                 <Button
                     alt
+                    onClick={() => navigate(-1)}
                 >
                     Back to Editor
                 </Button>
