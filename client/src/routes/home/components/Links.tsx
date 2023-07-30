@@ -34,67 +34,57 @@ export default function Links() {
     }
 
     return (
-        <main className={styles.main}>
+        <section>
 
-            <section className={styles.snapshot}>
+            <div className={styles.heading}>
 
+                <h3>
+                    Customize your links
+                </h3>
 
+                <p>
+                    Add/edit/remove links below and then share all your profiles with the world!
+                </p>
 
-            </section>
+                <Button
+                    alt
+                    onClick={addLink}
+                >
+                    &#43; Add new link
+                </Button>
 
-            <section>
+            </div>
 
-                <div className={styles.heading}>
+            <div className={styles.links}>
 
-                    <h3>
-                        Customize your links
-                    </h3>
+                {
+                    links?.length > 0 ? (
+                        links.map((link, idx) => (
+                            <EditableLink
+                                key={link.id}
+                                index={idx}
+                                removeLink={removeLink}
+                                setLinks={setLinks}
+                                { ...link }
+                            />
+                        ))
+                    ) : (
+                        <NoLinks />
+                    )
+                }
 
-                    <p>
-                        Add/edit/remove links below and then share all your profiles with the world!
-                    </p>
+            </div>
 
-                    <Button
-                        alt
-                        onClick={addLink}
-                    >
-                        &#43; Add new link
-                    </Button>
+            <div className={styles.save_btn_container}>
 
-                </div>
+                <Button
+                    disabled={!links || links.length === 0}
+                >
+                    Save
+                </Button>
 
-                <div className={styles.links}>
+            </div>
 
-                    {
-                        links?.length > 0 ? (
-                            links.map((link, idx) => (
-                                <EditableLink
-                                    key={link.id}
-                                    index={idx}
-                                    removeLink={removeLink}
-                                    setLinks={setLinks}
-                                    { ...link }
-                                />
-                            ))
-                        ) : (
-                            <NoLinks />
-                        )
-                    }
-
-                </div>
-
-                <div className={styles.save_btn_container}>
-
-                    <Button
-                        disabled={!links || links.length === 0}
-                    >
-                        Save
-                    </Button>
-
-                </div>
-
-            </section>
-
-        </main>
+        </section>
     )
 }

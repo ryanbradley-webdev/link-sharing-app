@@ -5,6 +5,7 @@ import Header from '../../components/header/Header'
 import Footer from '../../components/footer/Footer'
 import Links from './components/Links'
 import Profile from './components/Profile'
+import styles from './home.module.css'
 
 export default function Home() {
     const { user } = useContext(AuthContext)
@@ -27,7 +28,18 @@ export default function Home() {
                 setPage={setPage}
             />
 
-            {page === 'links' ? <Links /> : <Profile />}
+                <main className={styles.main}>
+
+                    <section className={styles.snapshot}>
+
+
+
+                    </section>
+
+
+                    {page === 'links' ? <Links /> : <Profile />}
+
+                </main>
 
             <Footer />
         </>

@@ -6,11 +6,12 @@ a {
 label {
     position: relative;
     display: grid;
+    row-gap: 8px;
     font: var(--font-body-sm);
     color: var(--clr-dark-grey);
 }
 
-label svg {
+label > svg {
     position: absolute;
     left: 16px;
     bottom: 16px;

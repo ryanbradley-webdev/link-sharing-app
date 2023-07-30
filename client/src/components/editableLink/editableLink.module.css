@@ -20,6 +20,6 @@
 
 .link_inputs {
     display: grid;
-    row-gap: 8px;
-    margin-top: 8px;
+    row-gap: 12px;
+    margin-top: 12px;
 }
