@@ -1,0 +1,33 @@
+.main {
+    margin: 16px;
+    padding: 24px;
+}
+
+@media screen and (max-width: 1000px) {
+    .snapshot {
+        display: none;
+    }
+}
+
+.heading button {
+    margin-top: 40px;
+}
+
+.no_links {
+    display: grid;
+    justify-items: center;
+    row-gap: 24px;
+    margin: 20px;
+    margin-top: 44px;
+    padding-top: 24px;
+}
+
+.no_links svg {
+    width: 125px;
+    height: auto;
+}
+
+.no_links p {
+    text-align: center;
+    max-width: 255px;
+}

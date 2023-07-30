@@ -32,12 +32,20 @@ body {
   color: var(--clr-light-grey);
 }
 
+h1,
+h2,
+h3 {
+  color: var(--clr-dark-grey);
+}
+
 h1 {
   font: var(--font-head-lg);
-  color: var(--clr-dark-grey);
 }
 
 h2 {
   font: var(--font-head-md);
-  color: var(--clr-dark-grey);
+}
+
+h3 {
+  font: bold 1.5rem/150% 'Instrument Sans', Arial, sans-serif;
 }

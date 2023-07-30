@@ -3,6 +3,7 @@
     font: var(--font-head-sm);
     height: 46px;
     border-radius: var(--border-radius);
+    width: 100%;
 }
 
 .btn {
