@@ -1,37 +1,12 @@
-import { useState } from 'react'
+import { useContext } from 'react'
 import Button from '../../../components/button/Button'
 import styles from '../home.module.css'
 import NoLinks from './NoLinks'
 import EditableLink from '../../../components/editableLink/EditableLink'
-import { PLATFORMS } from '../../../lib/platforms'
-
-export type Link = {
-    id: string,
-    platform: string
-    linkUrl: string
-}
-
-const blankLink = {
-    platform: PLATFORMS.GITHUB,
-    linkUrl: ''
-}
+import { DataContext } from '../../../contexts/DataContext'
 
 export default function Links() {
-    const [links, setLinks] = useState<Link[]>([])
-
-    const addLink = () => {
-        setLinks(prevLinks => ([
-            ...prevLinks,
-            {
-                ...blankLink,
-                id: crypto.randomUUID()
-            }
-        ]))
-    }
-
-    const removeLink = (id: string) => {
-        setLinks(prevLinks => prevLinks.filter(link => link.id !== id))
-    }
+    const { links, addLink } = useContext(DataContext)
 
     return (
         <section>
@@ -63,8 +38,6 @@ export default function Links() {
                             <EditableLink
                                 key={link.id}
                                 index={idx}
-                                removeLink={removeLink}
-                                setLinks={setLinks}
                                 { ...link }
                             />
                         ))

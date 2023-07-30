@@ -4,6 +4,7 @@ import DevLinksLogoSm from '../../assets/DevLinksLogoSm'
 import PreviewIcon from '../../assets/PreviewIcon'
 import LinksIconHeader from '../../assets/LinksIconHeader'
 import ProfileIconHeader from '../../assets/ProfileIconHeader'
+import { Link } from 'react-router-dom'
 
 export default function Header({
     page,
@@ -49,17 +50,21 @@ export default function Header({
 
             </nav>
 
-            <button
-                className={styles.preview_btn}
-            >
+            <Link to='/preview'>
 
-                <PreviewIcon />
+                <button
+                    className={styles.preview_btn}
+                >
 
-                <span>
-                    Preview
-                </span>
+                    <PreviewIcon />
 
-            </button>
+                    <span>
+                        Preview
+                    </span>
+
+                </button>
+
+            </Link>
 
         </header>
     )

@@ -1,0 +1,6 @@
+.btn_div {
+    display: flex;
+    gap: 16px;
+    padding-block: 16px;
+    padding-inline: 24px;
+}

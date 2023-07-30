@@ -1,41 +1,33 @@
-import { Dispatch, SetStateAction, useRef } from 'react'
+import { useContext, useRef } from 'react'
 import DragIcon from '../../assets/DragIcon'
 import LinkIcon from '../../assets/LinkIcon'
 import { generatePlatformIcon } from '../../lib/generatePlatformIcon'
-import { Link } from '../../routes/home/components/Links'
 import styles from './editableLink.module.css'
 import { PLATFORMS } from '../../lib/platforms'
+import { DataContext } from '../../contexts/DataContext'
 
 export default function EditableLink({
   index,
   id,
   linkUrl,
-  platform,
-  removeLink,
-  setLinks
+  platform
 }: {
   index: number
   id: string
   linkUrl: string
   platform: string
-  removeLink: (id: string) => void
-  setLinks: Dispatch<SetStateAction<Link[]>>
 }) {
+  const { removeLink, updateLink } = useContext(DataContext)
+
   const platformRef = useRef<HTMLSelectElement>(null)
   const linkRef = useRef<HTMLInputElement>(null)
 
-  const updateLink = () => {
-    setLinks(prevLinks => prevLinks.map(link => {
-      if (link.id === id) {
-        return {
-          id,
-          linkUrl: linkRef?.current?.value || '',
-          platform: platformRef?.current?.value || ''
-        }
-      } else {
-        return link
-      }
-    }))
+  const handleChange = () => {
+    updateLink({
+      id,
+      linkUrl: linkRef?.current?.value || '',
+      platform: platformRef?.current?.value || ''
+    })
   }
 
   return (
@@ -70,7 +62,7 @@ export default function EditableLink({
           <select
             name={`platform-${id}`}
             id={`platform-${id}`}
-            onChange={updateLink}
+            onChange={handleChange}
             value={platform}
             ref={platformRef}
           >
@@ -102,7 +94,7 @@ export default function EditableLink({
             id={`link-${id}`}
             placeholder='e.g. https://www.github.com/johnappleseed'
             value={linkUrl}
-            onChange={updateLink}
+            onChange={handleChange}
             ref={linkRef}
           />
 
