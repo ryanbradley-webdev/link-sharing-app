@@ -6,6 +6,11 @@
     width: 100%;
 }
 
+.btn:disabled,
+.alt_btn:disabled {
+    opacity: 0.25;
+}
+
 .btn {
     color: var(--clr-white-pri);
     background-color: var(--clr-purple-pri);

@@ -48,6 +48,16 @@ export default function Links() {
 
                 </div>
 
+                <div className={styles.save_btn_container}>
+
+                    <Button
+                        disabled={!links || links.length === 0}
+                    >
+                        Save
+                    </Button>
+
+                </div>
+
             </section>
 
         </main>
