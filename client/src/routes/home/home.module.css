@@ -18,9 +18,10 @@
     transform: translateX(-50%);
 }
 
-@media screen and (min-width: 1000px) {
+@media screen and (min-width: 1046px) {
     .main {
         display: grid;
+        padding-top: 10vh;
         grid-template-columns: 1fr 1.5fr;
     }
     
@@ -159,4 +160,23 @@
 
 .profile_details input {
     padding: 12px 16px;
+}
+
+@media screen and (min-width: 590px) {
+    .profile_pic label,
+    .profile_details label {
+        display: grid;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .profile_pic label {
+        grid-template-columns: 1fr 193px 1fr;
+    }
+
+    .profile_details label {
+        font: var(--font-body-md);
+        color: var(--clr-light-grey);
+        grid-template-columns: 1fr calc(50% + 96px);
+    }
 }

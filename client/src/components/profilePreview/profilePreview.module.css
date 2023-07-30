@@ -16,21 +16,26 @@
 .preview_bare {
     row-gap: 46px;
     margin-top: 63.5px;
+    min-width: 20%;
+}
+
+.user_bare h2,
+.user_bare p {
+    width: 100%;
+    background-color: var(--clr-white-pri);
 }
 
 .user_bare h2 {
     font-size: 18px;
-    background-color: var(--clr-white-pri);
+}
+
+.user_bare p {
+    font-size: 14px;
 }
 
 .user_bare h2[data-transparent='true'] {
     height: 27px;
     background-color: transparent;
-}
-
-.user_bare p {
-    font-size: 14px;
-    background-color: var(--clr-white-pri);
 }
 
 .user_bare p[data-transparent='true'] {
