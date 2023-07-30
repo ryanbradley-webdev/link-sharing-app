@@ -15,50 +15,50 @@ import TwitterIcon from "../assets/TwitterIcon"
 import YouTubeIcon from "../assets/YouTubeIcon"
 import { PLATFORMS } from "./platforms"
 
-export const generatePlatformIcon = (platform: string) => {
+export const generatePlatformIcon = (platform: string, color?: boolean) => {
     switch (platform) {
 
         case PLATFORMS.GITHUB:
-            return <GitHubIcon />
+            return <GitHubIcon color={color} />
 
         case PLATFORMS.FRONTEND_MENTOR:
             return <FrontendMentorIcon />
 
         case PLATFORMS.TWITTER:
-            return <TwitterIcon />
+            return <TwitterIcon color={color} />
 
         case PLATFORMS.LINKEDIN:
-            return <LinkedInIcon />
+            return <LinkedInIcon color={color} />
 
         case PLATFORMS.YOUTUBE:
-            return <YouTubeIcon />
+            return <YouTubeIcon color={color} />
 
         case PLATFORMS.FACEBOOK:
-            return <FacebookIcon />
+            return <FacebookIcon color={color} />
 
         case PLATFORMS.TWITCH:
-            return <TwitchIcon />
+            return <TwitchIcon color={color} />
 
         case PLATFORMS.DEVTO:
-            return <DevtoIcon />
+            return <DevtoIcon color={color} />
 
         case PLATFORMS.CODEWARS:
-            return <CodewarsIcon />
+            return <CodewarsIcon color={color} />
 
         case PLATFORMS.CODEPEN:
-            return <CodepenIcon />
+            return <CodepenIcon color={color} />
 
         case PLATFORMS.FREE_CODE_CAMP:
-            return <FreeCodeCampIcon />
+            return <FreeCodeCampIcon color={color} />
 
         case PLATFORMS.GITLAB:
-            return <GitLabIcon />
+            return <GitLabIcon color={color} />
 
         case PLATFORMS.HASHNODE:
-            return <HashnodeIcon />
+            return <HashnodeIcon color={color} />
 
         case PLATFORMS.STACK_OVERFLOW:
-            return <StackOverflowIcon />
+            return <StackOverflowIcon color={color} />
 
         default:
             return <LinkIcon />

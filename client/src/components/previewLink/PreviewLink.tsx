@@ -1,6 +1,8 @@
 import RightArrowIcon from '../../assets/RightArrowIcon'
 import { Link } from '../../contexts/DataContext'
+import { generateBackgroundColor } from '../../lib/generateBackgroundColor'
 import { generatePlatformIcon } from '../../lib/generatePlatformIcon'
+import { PLATFORMS } from '../../lib/platforms'
 import styles from './previewLink.module.css'
 
 export default function PreviewLink({
@@ -8,19 +10,39 @@ export default function PreviewLink({
 }: {
     link: Link
 }) {
+    const isFrontEndMentor = link.platform === PLATFORMS.FRONTEND_MENTOR
+
     return (
-        <button
-            className={styles.button}
+        <a
+            href={link.linkUrl}
+            target='_blank'
+            rel='noopener nofollower'
         >
 
-            {generatePlatformIcon(link.platform)}
+            <button
+                className={styles.button}
+                style={{
+                    backgroundColor: generateBackgroundColor(link.platform),
+                    border: isFrontEndMentor ? '1px solid var(--clr-border)' : 'none'
+                }}
+            >
 
-            <span>
-                {link.platform}
-            </span>
+                {generatePlatformIcon(link.platform, true)}
 
-            <RightArrowIcon />
+                <span
+                    style={{
+                        color: isFrontEndMentor ? 'var(--clr-dark-grey)' : 'var(--clr-white-pri)'
+                    }}
+                >
+                    {link.platform}
+                </span>
 
-        </button>
+                <RightArrowIcon
+                    grey={isFrontEndMentor}
+                />
+
+            </button>
+
+        </a>
     )
 }

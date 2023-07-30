@@ -61,3 +61,8 @@
     width: 104px;
     background-color: var(--clr-purple-ter);
 }
+
+.link_list {
+    display: grid;
+    row-gap: 20px;
+}
