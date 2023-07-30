@@ -37,9 +37,9 @@ export default function Preview() {
 
                     {
                         userData.image ? (
-                            <img src={userData.image} alt='' width={104} height={104} className={styles.image} />
+                            <img src={userData.image} alt='' width={104} height={104} className={styles.img} />
                         ) : (
-                            <div className={styles.image_placeholder}>
+                            <div className={styles.img_placeholder}>
 
                                 <ImageIcon />
 
