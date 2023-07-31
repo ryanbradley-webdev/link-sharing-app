@@ -84,10 +84,23 @@
     cursor: pointer;
 }
 
+.option,
+.option path {
+    transition: all 0.3s ease;
+}
+
 .option:not(:last-child) {
     border-bottom: 1px solid var(--clr-border);
 }
 
 .option:is(:hover, :focus) {
     color: var(--clr-purple-pri);
+}
+
+.option:not(:nth-of-type(8)):is(:hover, :focus) path {
+    fill: var(--clr-purple-pri);
+}
+
+.option:nth-of-type(8):is(:hover, :focus) path:first-child {
+    fill: var(--clr-purple-pri);
 }
