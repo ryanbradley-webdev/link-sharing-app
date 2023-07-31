@@ -1,4 +1,5 @@
 import { generatePlatformIcon } from "../../../lib/generatePlatformIcon"
+import styles from '../editableLink.module.css'
 
 export default function Option({
     platform,
@@ -10,6 +11,7 @@ export default function Option({
     return (
         <div
             onClick={onClick}
+            className={styles.option}
         >
 
             {generatePlatformIcon(platform)}
