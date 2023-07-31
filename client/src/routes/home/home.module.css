@@ -42,6 +42,10 @@
     margin-bottom: 24px;
 }
 
+.links {
+    position: relative;
+}
+
 .no_links {
     display: grid;
     justify-items: center;

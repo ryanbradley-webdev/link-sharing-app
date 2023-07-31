@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useRef, useState } from 'react'
 import DragIcon from '../../assets/DragIcon'
 import LinkIcon from '../../assets/LinkIcon'
 import styles from './editableLink.module.css'
@@ -9,14 +9,22 @@ export default function EditableLink({
   index,
   id,
   linkUrl,
-  platform
+  platform,
+  containerRef
 }: {
   index: number
   id: string
   linkUrl: string
   platform: string
+  containerRef: React.RefObject<HTMLDivElement>
 }) {
   const { removeLink, updateLink } = useContext(DataContext)
+
+  const [isDragging, setIsDragging] = useState(false)
+  const [fillerHeight, setFillerHeight] = useState(0)
+  const [fillerWidth, setFillerWidth] = useState(0)
+
+  const divRef = useRef<HTMLDivElement>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateLink({
@@ -34,53 +42,117 @@ export default function EditableLink({
     })
   }
 
+  const dragEventListener = (e: MouseEvent) => {
+    const mousePosition = e.clientY
+
+    if (divRef.current?.parentElement) {
+      const { height } = divRef.current.getBoundingClientRect()
+
+      const topOffset = divRef.current.parentElement.getBoundingClientRect().top
+
+      const divPosition = mousePosition - topOffset - 30
+
+      const maxBottom 
+        = divRef.current.parentElement.getBoundingClientRect().height
+        - (height / 3)
+
+      divRef.current.style.top
+        = divPosition < (-1 * height / 3) ? (-1 * height / 3) + 'px'
+        : divPosition > maxBottom ? maxBottom + 'px'
+        : divPosition + 'px'
+    }
+  }
+
+  const startDrag = () => {
+    if (containerRef.current && divRef.current) {
+      const { height, width, top } = divRef.current.getBoundingClientRect()
+
+      const containerTop = divRef.current.parentElement?.getBoundingClientRect().top
+
+      setFillerWidth(width)
+      setFillerHeight(height)
+
+      setIsDragging(true)
+
+      divRef.current.style.top = top - (containerTop || 0) + 'px'
+
+      document.addEventListener('mousemove', dragEventListener)
+
+      document.addEventListener('mouseup', endDrag)
+    }
+  }
+
+  const endDrag = () => {
+    if (containerRef.current && divRef.current) {
+      setIsDragging(false)
+
+      divRef.current.style.top = ''
+
+      document.removeEventListener('mousemove', dragEventListener)
+    }
+  }
+
   return (
-    <div className={styles.link_wrapper}>
+    <>
+      <div
+        className={styles.link_wrapper}
+        ref={divRef}
+        data-drag={isDragging}
+      >
 
-      <div className={styles.link_head}>
+        <div className={styles.link_head}>
 
-        <DragIcon />
+          <button
+            className={styles.drag_btn}
+            onMouseDown={startDrag}
+          >
 
-        <span>
-          Link #{index + 1}
-        </span>
+            <DragIcon />
 
-        <button
-          onClick={() => removeLink(id)}
-        >
-          Remove
-        </button>
-
-      </div>
-
-      <div className={styles.link_inputs}>
-
-        <Select
-          selectedPlatform={platform}
-          changePlatform={changePlatform}
-        />
-
-        <label htmlFor={`link-${id}`}>
-
-          <LinkIcon />
+          </button>
 
           <span>
-            Link
+            Link #{index + 1}
           </span>
 
-          <input
-            type="text"
-            name={`link-${id}`}
-            id={`link-${id}`}
-            placeholder='e.g. https://www.github.com/johnappleseed'
-            value={linkUrl}
-            onChange={handleChange}
+          <button
+            onClick={() => removeLink(id)}
+          >
+            Remove
+          </button>
+
+        </div>
+
+        <div className={styles.link_inputs}>
+
+          <Select
+            selectedPlatform={platform}
+            changePlatform={changePlatform}
           />
 
-        </label>
+          <label htmlFor={`link-${id}`}>
+
+            <LinkIcon />
+
+            <span>
+              Link
+            </span>
+
+            <input
+              type="text"
+              name={`link-${id}`}
+              id={`link-${id}`}
+              placeholder='e.g. https://www.github.com/johnappleseed'
+              value={linkUrl}
+              onChange={handleChange}
+            />
+
+          </label>
+
+        </div>
 
       </div>
-
-    </div>
+      {isDragging && <div style={{ height: fillerHeight, width: fillerWidth }}></div>}
+    </>
   )
 }

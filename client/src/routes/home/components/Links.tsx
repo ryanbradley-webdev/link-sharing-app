@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useRef } from 'react'
 import Button from '../../../components/button/Button'
 import styles from '../home.module.css'
 import NoLinks from './NoLinks'
@@ -7,6 +7,8 @@ import { DataContext } from '../../../contexts/DataContext'
 
 export default function Links() {
     const { links, addLink } = useContext(DataContext)
+
+    const linksRef = useRef<HTMLDivElement>(null)
 
     return (
         <section className={styles.section}>
@@ -30,7 +32,10 @@ export default function Links() {
 
             </div>
 
-            <div className={styles.links}>
+            <div
+                className={styles.links}
+                ref={linksRef}
+            >
 
                 {
                     links?.length > 0 ? (
@@ -38,6 +43,7 @@ export default function Links() {
                             <EditableLink
                                 key={link.id}
                                 index={idx}
+                                containerRef={linksRef}
                                 { ...link }
                             />
                         ))

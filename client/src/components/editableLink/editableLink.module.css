@@ -1,11 +1,18 @@
 .link_wrapper {
     padding: 20px;
+    width: 100%;
+    background-color: var(--clr-white-pri);
+}
+
+.link_wrapper[data-drag='true'] {
+    position: absolute;
+    opacity: 0.5;
+    z-index: 5;
 }
 
 .link_head {
     display: flex;
     align-items: center;
-    gap: 8px;
     width: 100%;
     font: var(--font-head-sm);
 }
@@ -22,6 +29,15 @@
     display: grid;
     row-gap: 12px;
     margin-top: 12px;
+}
+
+.drag_btn {
+    display: flex;
+    align-items: center;
+    border: none;
+    background-color: transparent;
+    padding-right: 8px;
+    height: 100%;
 }
 
 .label > svg:last-child {
