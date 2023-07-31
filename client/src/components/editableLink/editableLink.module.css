@@ -23,3 +23,38 @@
     row-gap: 12px;
     margin-top: 12px;
 }
+
+.label > svg:last-child {
+    position: absolute;
+    right: 16px;
+    bottom: 18px;
+    transform-origin: center;
+}
+
+.input {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding-left: 44px;
+    font: var(--font-body-md);
+    color: var(--clr-dark-grey);
+    height: 48px;
+    border: 1px solid var(--clr-border);
+    border-radius: var(--border-radius);
+    transition: 0.3s ease;
+}
+
+.input:is(:hover, :focus) {
+    border: 1px solid var(--clr-purple-pri);
+    box-shadow: 0 0 32px var(--clr-purple-shadow);
+}
+
+.dropdown {
+    position: absolute;
+    display: none;
+    background-color: var(--clr-white-pri);
+}
+
+.dropdown[aria-hidden='false'] {
+    display: block;
+}

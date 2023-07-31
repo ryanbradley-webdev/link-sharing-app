@@ -1,10 +1,9 @@
 import { useContext, useRef } from 'react'
 import DragIcon from '../../assets/DragIcon'
 import LinkIcon from '../../assets/LinkIcon'
-import { generatePlatformIcon } from '../../lib/generatePlatformIcon'
 import styles from './editableLink.module.css'
-import { PLATFORMS } from '../../lib/platforms'
 import { DataContext } from '../../contexts/DataContext'
+import Select from './components/Select'
 
 export default function EditableLink({
   index,
@@ -51,34 +50,9 @@ export default function EditableLink({
 
       <div className={styles.link_inputs}>
 
-        <label htmlFor={`platform-${id}`}>
-
-          {generatePlatformIcon(platform)}
-
-          <span>
-            Platform
-          </span>
-
-          <select
-            name={`platform-${id}`}
-            id={`platform-${id}`}
-            onChange={handleChange}
-            value={platform}
-            ref={platformRef}
-          >
-            {Object.values(PLATFORMS).map(platform => (
-
-              <option
-                key={crypto.randomUUID()}
-                value={platform}
-              >
-                {platform}
-              </option>
-              
-            ))}
-          </select>
-
-        </label>
+        <Select
+          selectedPlatform={platform}
+        />
 
         <label htmlFor={`link-${id}`}>
 

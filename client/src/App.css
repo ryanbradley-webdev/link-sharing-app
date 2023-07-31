@@ -4,7 +4,7 @@ a {
 }
 
 button,
-select {
+label[data-select='true'] > div:first-of-type {
     cursor: pointer;
 }
 
@@ -16,7 +16,7 @@ label {
     color: var(--clr-dark-grey);
 }
 
-label > svg {
+label > svg:first-child {
     position: absolute;
     left: 16px;
     bottom: 16px;
@@ -24,8 +24,7 @@ label > svg {
     height: auto;
 }
 
-input,
-select {
+input {
     padding-left: 44px;
     font: var(--font-body-md);
     color: var(--clr-dark-grey);
@@ -44,19 +43,8 @@ input::placeholder {
     opacity: 0.5;
 }
 
-:where(input, select):is(:focus, :hover) {
+input:is(:focus, :hover) {
     outline: none;
     border: 1px solid var(--clr-purple-pri);
     box-shadow: 0 0 32px var(--clr-purple-shadow);
-}
-
-select {
-    appearance: none;
-}
-
-label:has(select)::after {
-    content: url('/icon-chevron-down.svg');
-    position: absolute;
-    bottom: 13px;
-    right: 16px;
 }
