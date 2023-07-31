@@ -1,12 +1,16 @@
 import { generatePlatformIcon } from "../../../lib/generatePlatformIcon"
 
 export default function Option({
-    platform
+    platform,
+    onClick
 }: {
     platform: string
+    onClick: () => void
 }) {
     return (
-        <div>
+        <div
+            onClick={onClick}
+        >
 
             {generatePlatformIcon(platform)}
 

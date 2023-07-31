@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react'
+import { useContext } from 'react'
 import DragIcon from '../../assets/DragIcon'
 import LinkIcon from '../../assets/LinkIcon'
 import styles from './editableLink.module.css'
@@ -18,14 +18,19 @@ export default function EditableLink({
 }) {
   const { removeLink, updateLink } = useContext(DataContext)
 
-  const platformRef = useRef<HTMLSelectElement>(null)
-  const linkRef = useRef<HTMLInputElement>(null)
-
-  const handleChange = () => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateLink({
       id,
-      linkUrl: linkRef?.current?.value || '',
-      platform: platformRef?.current?.value || ''
+      linkUrl: e.target.value,
+      platform
+    })
+  }
+
+  const changePlatform = (newPlatform: string) => {
+    updateLink({
+      id,
+      linkUrl,
+      platform: newPlatform
     })
   }
 
@@ -52,6 +57,7 @@ export default function EditableLink({
 
         <Select
           selectedPlatform={platform}
+          changePlatform={changePlatform}
         />
 
         <label htmlFor={`link-${id}`}>
@@ -69,7 +75,6 @@ export default function EditableLink({
             placeholder='e.g. https://www.github.com/johnappleseed'
             value={linkUrl}
             onChange={handleChange}
-            ref={linkRef}
           />
 
         </label>

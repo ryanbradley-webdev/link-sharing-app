@@ -6,11 +6,18 @@ import Chevron from "../../../assets/Chevron"
 import { useState } from "react"
 
 export default function Select({
-    selectedPlatform
+    selectedPlatform,
+    changePlatform
 }: {
     selectedPlatform: string
+    changePlatform: (newPlatform: string) => void
 }) {
     const [isVisible, setIsVisible] = useState(false)
+
+    const handleClick = (platform: string) => {
+        changePlatform(platform)
+        setIsVisible(false)
+    }
 
     return (
         <label
@@ -40,6 +47,7 @@ export default function Select({
                     <Option
                         key={crypto.randomUUID()}
                         platform={platform}
+                        onClick={() => handleClick(platform)}
                     />
 
                 ))}
