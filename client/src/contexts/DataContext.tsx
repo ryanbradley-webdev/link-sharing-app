@@ -8,6 +8,7 @@ type DataContext = {
     addLink: () => void
     removeLink: (id: string) => void
     updateLink: (updatedLink: Link) => void
+    reorderLinks: (targetId: string, newIdx: number) => void
     updateFirstName: (newName: string) => void
     updateLastName: (newName: string) => void
     updateEmail: (newEmail: string) => void
@@ -70,6 +71,24 @@ export default function DataProvider({ children }: { children: ReactNode }) {
         }))
     }
 
+    const reorderLinks = (targetId: string, newIdx: number) => {
+        const targetLink = links.find(link => link.id === targetId)
+
+        if (!targetLink) return
+
+        const otherLinks = links.filter(link => link.id !== targetId)
+
+        const prefixedLinks = otherLinks.slice(0, newIdx)
+
+        const postfixedLinks = otherLinks.slice(newIdx, otherLinks.length)
+
+        setLinks([
+            ...prefixedLinks,
+            targetLink,
+            ...postfixedLinks
+        ])
+    }
+
     const updateFirstName = (newName: string) => {
         setUserData(prevData => ({
             ...prevData,
@@ -109,6 +128,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
         addLink,
         removeLink,
         updateLink,
+        reorderLinks,
         updateFirstName,
         updateLastName,
         updateEmail,

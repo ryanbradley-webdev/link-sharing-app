@@ -18,13 +18,14 @@ export default function EditableLink({
   platform: string
   containerRef: React.RefObject<HTMLDivElement>
 }) {
-  const { removeLink, updateLink } = useContext(DataContext)
+  const { removeLink, updateLink, reorderLinks } = useContext(DataContext)
 
   const [isDragging, setIsDragging] = useState(false)
   const [fillerHeight, setFillerHeight] = useState(0)
   const [fillerWidth, setFillerWidth] = useState(0)
 
   const divRef = useRef<HTMLDivElement>(null)
+  const fillerRef = useRef<HTMLDivElement>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateLink({
@@ -60,6 +61,30 @@ export default function EditableLink({
         = divPosition < (-1 * height / 3) ? (-1 * height / 3) + 'px'
         : divPosition > maxBottom ? maxBottom + 'px'
         : divPosition + 'px'
+
+      const children = [...divRef.current.parentElement.children].filter(child => {
+        const isFiller = child.classList.length === 0
+
+        const isDragging = child.getAttribute('data-drag') === 'true'
+
+        return !isFiller && !isDragging
+      })
+
+      children.forEach((child, childIndex) => {
+
+        if (divRef.current) {
+          const childTop = child.getBoundingClientRect().top
+          const targetTop = divRef.current.getBoundingClientRect().top
+
+          if ((targetTop + (height / 4)) < childTop && index !== 0 && childIndex === index - 1) {
+            reorderLinks(id, childIndex)
+          } 
+          
+          if (targetTop > childTop + (height / 4) && childIndex === index) {
+            reorderLinks(id, childIndex + 1)
+          }
+        }
+      })
     }
   }
 
@@ -152,7 +177,15 @@ export default function EditableLink({
         </div>
 
       </div>
-      {isDragging && <div style={{ height: fillerHeight, width: fillerWidth }}></div>}
+      {isDragging && (
+        <div
+          ref={fillerRef}
+          style={{ 
+            height: fillerHeight, 
+            width: fillerWidth 
+          }}
+        ></div>
+      )}
     </>
   )
 }
