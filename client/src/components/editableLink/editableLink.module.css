@@ -4,7 +4,7 @@
     background-color: var(--clr-white-pri);
 }
 
-.link_wrapper[data-drag='true'] {
+.link_wrapper[data-copy='true'] {
     position: absolute;
     opacity: 0.5;
     z-index: 5;
