@@ -59,9 +59,9 @@ export default function EditableLink({
       data-copy={typeof copyRef != 'undefined'}
       style={{
         top: initialTop || '',
-        opacity: isDragging ? '0.4' : ''
+        opacity: isDragging ? '0.3' : ''
       }}
-      id='id'
+      id={id}
     >
 
       <div className={styles.link_head}>

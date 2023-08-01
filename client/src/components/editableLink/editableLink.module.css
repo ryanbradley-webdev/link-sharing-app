@@ -6,8 +6,13 @@
 
 .link_wrapper[data-copy='true'] {
     position: absolute;
-    opacity: 0.5;
+    opacity: 0.8;
+    background-color: var(--clr-white-pri);
     z-index: 5;
+}
+
+.link_wrapper[data-copy='true'] > * {
+    opacity: 0.8;
 }
 
 .link_head {

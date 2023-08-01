@@ -6,7 +6,7 @@ import EditableLink from '../../../components/editableLink/EditableLink'
 import { DataContext, Link } from '../../../contexts/DataContext'
 
 export default function Links() {
-    const { links, addLink } = useContext(DataContext)
+    const { links, addLink, reorderLinks } = useContext(DataContext)
 
     const [dragIdx, setDragIdx] = useState<null | number>(null)
     const [targetLink, setTargetLink] = useState<null | Link>(null)
@@ -22,11 +22,26 @@ export default function Links() {
                 child.getAttribute('data-copy') !== 'true'
             ))
         
-            const { height } = copyRef.current.getBoundingClientRect()
-        
-            const { top } = linksRef.current.getBoundingClientRect()
+            const { top, height } = linksRef.current.getBoundingClientRect()
+            const divHeight = copyRef.current.getBoundingClientRect().height
 
-            copyRef.current.style.top = mousePosition - top - 30 + 'px'
+            const maxHeight = 0
+            const minHeight = height - divHeight
+
+            const newPosition = mousePosition - top - 30
+
+            copyRef.current.style.top
+                = newPosition < maxHeight ? maxHeight + 'px'
+                : newPosition > minHeight ? minHeight + 'px'
+                : newPosition + 'px'
+
+            children.forEach((child, idx) => {
+                const childTop = (child as HTMLDivElement).offsetTop
+
+                if (Math.abs(childTop - newPosition) < 100 && idx !== dragIdx && copyRef.current) {
+                    reorderLinks(copyRef.current.id, idx)
+                }
+            })
         }
     }
     
@@ -66,8 +81,6 @@ export default function Links() {
             const initialTop = (dragIdx * height) + 'px'
 
             copyRef.current.style.top = initialTop
-
-            console.log(initialTop)
         }
     }, [targetLink, dragIdx])
 
@@ -104,7 +117,7 @@ export default function Links() {
                             <EditableLink
                                 key={link.id}
                                 index={idx}
-                                isDragging={dragIdx === idx}
+                                isDragging={targetLink?.id === link.id}
                                 startDrag={startDrag}
                                 { ...link }
                             />
