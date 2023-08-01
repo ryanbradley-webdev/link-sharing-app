@@ -5,6 +5,7 @@ import PreviewIcon from '../../assets/PreviewIcon'
 import LinksIconHeader from '../../assets/LinksIconHeader'
 import ProfileIconHeader from '../../assets/ProfileIconHeader'
 import { Link } from 'react-router-dom'
+import Button from '../button/Button'
 
 export default function Header({
     page,
@@ -50,10 +51,13 @@ export default function Header({
 
             </nav>
 
-            <Link to='/preview'>
+            <Link
+                to='/preview'
+                className={styles.preview_btn}
+            >
 
-                <button
-                    className={styles.preview_btn}
+                <Button
+                    alt
                 >
 
                     <PreviewIcon />
@@ -62,7 +66,7 @@ export default function Header({
                         Preview
                     </span>
 
-                </button>
+                </Button>
 
             </Link>
 

@@ -1,7 +1,8 @@
+import { ReactNode } from 'react'
 import styles from './button.module.css'
 
 interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-    children: string
+    children: ReactNode
     alt?: boolean
     disabled?: boolean
 }

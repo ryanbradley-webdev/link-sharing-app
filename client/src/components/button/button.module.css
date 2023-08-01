@@ -4,6 +4,7 @@
     height: 46px;
     border-radius: var(--border-radius);
     width: 100%;
+    transition: all 0.3s ease;
 }
 
 .btn:disabled,
@@ -21,4 +22,11 @@
     color: var(--clr-purple-pri);
     background-color: var(--clr-white-pri);
     border: 1px solid var(--clr-purple-pri);
+}
+
+@media screen and (min-width: 481px) {
+    :where(.btn, .alt_btn):not(:disabled):is(:hover, :focus) {
+        background-color: var(--clr-purple-sec);
+        box-shadow: 0 0 32px var(--clr-purple-shadow);
+    }
 }

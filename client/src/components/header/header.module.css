@@ -11,7 +11,7 @@
 }
 
 .nav_btn,
-.preview_btn {
+.preview_btn button {
     font: var(--font-head-sm);
     color: var(--clr-light-grey);
     display: flex;
@@ -29,7 +29,10 @@
     border: none;
 }
 
-.preview_btn {
+.preview_btn button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     min-width: 52px;
     color: var(--clr-purple-pri);
     border: 1px solid var(--clr-purple-pri);
@@ -37,19 +40,19 @@
 
 @media screen and (max-width: 500px) {
     .nav_btn span,
-    .preview_btn span {
+    .preview_btn button span {
         display: none;
     }
 }
 
 @media screen and (min-width: 501px) {
     .nav_btn,
-    .preview_btn {
+    .preview_btn button {
         height: 46px;
         padding-inline: 27px;
     }
 
-    .preview_btn svg {
+    .preview_btn button svg {
         display: none;
     }
 }
