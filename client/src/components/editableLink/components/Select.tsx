@@ -35,6 +35,9 @@ export default function Select({
                 onClick={() => setIsVisible(!isVisible)}
             >
                 {selectedPlatform}
+
+                <Chevron />
+                
             </div>
             
             <div
@@ -53,8 +56,6 @@ export default function Select({
                 ))}
 
             </div>
-
-            <Chevron />
 
         </label>
     )

@@ -40,7 +40,7 @@
     height: 100%;
 }
 
-.label > svg:last-child {
+.input > svg {
     position: absolute;
     right: 16px;
     bottom: 18px;
@@ -87,7 +87,7 @@
     box-shadow: 0 0 32px #0000001a;
 }
 
-.dropdown[aria-hidden='false'] + svg {
+.label:has(.dropdown[aria-hidden='false']) .input > svg {
     rotate: 180deg;
 }
 
