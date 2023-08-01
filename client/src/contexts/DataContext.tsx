@@ -1,8 +1,9 @@
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useEffect, useState } from 'react'
 import { PLATFORMS } from '../lib/platforms'
 
 type DataContext = {
     links: Link[]
+    linkOrder: string[]
     userData: UserData
     uploadedImg: string
     addLink: () => void
@@ -46,6 +47,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
     const [links, setLinks] = useState<Link[]>([])
     const [userData, setUserData] = useState<UserData>(blankUser)
     const [uploadedImg, setUploadedImg] = useState<string>('')
+    const [linkOrder, setLinkOrder] = useState(links.map(link => link.id))
 
     const addLink = () => {
         setLinks(prevLinks => ([
@@ -123,6 +125,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
 
     const value = {
         links,
+        linkOrder,
         userData,
         uploadedImg,
         addLink,
@@ -134,6 +137,10 @@ export default function DataProvider({ children }: { children: ReactNode }) {
         updateEmail,
         previewImg
     }
+
+    useEffect(() => {
+        setLinkOrder(links.map(link => link.id))
+    }, [links])
 
     return (
         <DataContext.Provider value={value}>

@@ -62,29 +62,33 @@ export default function EditableLink({
         : divPosition > maxBottom ? maxBottom + 'px'
         : divPosition + 'px'
 
-      const children = [...divRef.current.parentElement.children].filter(child => {
-        const isFiller = child.classList.length === 0
+      const children = [...divRef.current.parentElement.children].filter(child => (
+        child.classList.length !== 0
+      ))
 
-        const isDragging = child.getAttribute('data-drag') === 'true'
+      const prefixChild = children.find((_, idx) => {
+        if (index === 0) return false
 
-        return !isFiller && !isDragging
+        return idx === index - 1
       })
 
-      children.forEach((child, childIndex) => {
+      const suffixChild = children.find((_, idx) => {
+        if (index === children.length - 1) return false
 
-        if (divRef.current) {
-          const childTop = child.getBoundingClientRect().top
-          const targetTop = divRef.current.getBoundingClientRect().top
-
-          if ((targetTop + (height / 4)) < childTop && index !== 0 && childIndex === index - 1) {
-            reorderLinks(id, childIndex)
-          } 
-          
-          if (targetTop > childTop + (height / 4) && childIndex === index) {
-            reorderLinks(id, childIndex + 1)
-          }
-        }
+        return idx === index + 1
       })
+
+      const upThreshold = prefixChild ? prefixChild.getBoundingClientRect().top - (height / 4) : null
+      const downThreshold = suffixChild ? suffixChild.getBoundingClientRect().top + (height / 4) : null
+      const targetTop = divRef.current.getBoundingClientRect().top
+
+      if (upThreshold && targetTop < upThreshold) {
+        reorderLinks(id, index - 1)
+      } 
+      
+      if (downThreshold && targetTop > downThreshold) {
+        reorderLinks(id, index + 1)
+      }
     }
   }
 
