@@ -9,23 +9,18 @@ export default function EditableLink({
   index,
   id,
   linkUrl,
-  platform,
-  containerRef
+  platform
 }: {
   index: number
   id: string
   linkUrl: string
   platform: string
-  containerRef: React.RefObject<HTMLDivElement>
 }) {
-  const { removeLink, updateLink, reorderLinks } = useContext(DataContext)
+  const { removeLink, updateLink } = useContext(DataContext)
 
   const [isDragging, setIsDragging] = useState(false)
-  const [fillerHeight, setFillerHeight] = useState(0)
-  const [fillerWidth, setFillerWidth] = useState(0)
 
   const divRef = useRef<HTMLDivElement>(null)
-  const fillerRef = useRef<HTMLDivElement>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     updateLink({
@@ -47,7 +42,61 @@ export default function EditableLink({
     const mousePosition = e.clientY
 
     if (divRef.current?.parentElement) {
+      const children = [...divRef.current.parentElement.children]
+
+      let nextChildIdx = index === children.length - 1 ? null : index + 1
+      let prevChildIdx = index === 0 ? null : index - 1
+
+      const findChild = (idx: number | null) => {
+        const child = idx != null ? children[idx] as HTMLDivElement : null
+        
+        return child
+      }
+
+      let nextChild = findChild(nextChildIdx)
+      let prevChild = findChild(prevChildIdx)
+
       const { height } = divRef.current.getBoundingClientRect()
+
+      const setChildMargin = () => {
+        children.forEach((child, idx) => {
+          if (idx === nextChildIdx && prevChild) {
+            (child as HTMLDivElement).style.marginTop = height + 'px'
+          } else {
+            (child as HTMLDivElement).style.marginTop = ''
+          }
+        })
+
+        if (divRef.current?.parentElement) {
+          if (!nextChild) {
+            divRef.current.parentElement.style.paddingTop = ''
+            divRef.current.parentElement.style.paddingBottom = height + 'px'
+          } else if (!prevChild) {
+            divRef.current.parentElement.style.paddingTop = height + 'px'
+            divRef.current.parentElement.style.paddingBottom = ''
+          } else {
+            divRef.current.parentElement.style.paddingTop = ''
+            divRef.current.parentElement.style.paddingBottom = ''
+          }
+        }
+      }
+
+      setChildMargin()
+
+      const thresholds: {
+        up: null | number
+        down: null | number
+      } = {
+        up: null,
+        down: null
+      }
+
+      const calculateThresholds = () => {
+        thresholds.up = prevChild ? prevChild.getBoundingClientRect().top - (height / 4) : null
+        thresholds.down = nextChild ? nextChild.getBoundingClientRect().top + (height / 4) : null
+      }
+
+      calculateThresholds()
 
       const topOffset = divRef.current.parentElement.getBoundingClientRect().top
 
@@ -62,134 +111,163 @@ export default function EditableLink({
         : divPosition > maxBottom ? maxBottom + 'px'
         : divPosition + 'px'
 
-      const children = [...divRef.current.parentElement.children].filter(child => (
-        child.classList.length !== 0
-      ))
-
-      const prefixChild = children.find((_, idx) => {
-        if (index === 0) return false
-
-        return idx === index - 1
-      })
-
-      const suffixChild = children.find((_, idx) => {
-        if (index === children.length - 1) return false
-
-        return idx === index + 1
-      })
-
-      const upThreshold = prefixChild ? prefixChild.getBoundingClientRect().top - (height / 4) : null
-      const downThreshold = suffixChild ? suffixChild.getBoundingClientRect().top + (height / 4) : null
       const targetTop = divRef.current.getBoundingClientRect().top
 
-      if (upThreshold && targetTop < upThreshold) {
-        reorderLinks(id, index - 1)
+      if (thresholds.up && targetTop < thresholds.up) {
+        if (!nextChildIdx) {
+          nextChildIdx = children.length - 1
+        } else {
+          nextChildIdx--
+          if (nextChildIdx === index) {
+            nextChildIdx--
+          }
+        }
+
+        if (prevChildIdx) {
+          prevChildIdx--
+
+          if (prevChildIdx === index) {
+            prevChildIdx--
+          }
+
+          if (prevChildIdx <= 0) {
+            prevChildIdx = null
+          }
+        }
+
+        nextChild = findChild(nextChildIdx)
+        prevChild = findChild(prevChildIdx)
+
+        setChildMargin()
+        calculateThresholds()
       } 
       
-      if (downThreshold && targetTop > downThreshold) {
-        reorderLinks(id, index + 1)
+      if (thresholds.down && targetTop > thresholds.down) {
+        if (!prevChildIdx) {
+          prevChildIdx = 0
+        } else {
+          prevChildIdx++
+          if (prevChildIdx === index) {
+            prevChildIdx++
+          }
+        }
+
+        if (nextChildIdx) {
+          nextChildIdx++
+          if (nextChildIdx === index) {
+            nextChildIdx++
+          }
+
+          if (nextChildIdx === children.length) {
+            nextChildIdx = null
+          }
+        }
+
+        nextChild = findChild(nextChildIdx)
+        prevChild = findChild(prevChildIdx)
+
+        setChildMargin()
+        calculateThresholds()
       }
     }
   }
 
   const startDrag = () => {
-    if (containerRef.current && divRef.current) {
-      const { height, width, top } = divRef.current.getBoundingClientRect()
+    if (divRef.current) {
+      const { top } = divRef.current.getBoundingClientRect()
 
       const containerTop = divRef.current.parentElement?.getBoundingClientRect().top
-
-      setFillerWidth(width)
-      setFillerHeight(height)
 
       setIsDragging(true)
 
       divRef.current.style.top = top - (containerTop || 0) + 'px'
 
-      document.addEventListener('mousemove', dragEventListener)
+      window.addEventListener('mousemove', dragEventListener)
 
-      document.addEventListener('mouseup', endDrag)
+      window.addEventListener('mouseup', endDrag)
     }
   }
 
   const endDrag = () => {
-    if (containerRef.current && divRef.current) {
+    if (divRef.current) {
       setIsDragging(false)
+
+      if (divRef.current.parentElement) {
+        const childWithMargin = [...divRef.current.parentElement.children].find(child => (
+          (child as HTMLDivElement).style.marginTop !== ''
+        )) as HTMLDivElement
+
+        if (childWithMargin) childWithMargin.style.marginTop = ''
+
+        divRef.current.parentElement.style.paddingTop = ''
+        divRef.current.parentElement.style.paddingBottom = ''
+      }
 
       divRef.current.style.top = ''
 
-      document.removeEventListener('mousemove', dragEventListener)
+      window.removeEventListener('mousemove', dragEventListener)
     }
   }
 
   return (
-    <>
-      <div
-        className={styles.link_wrapper}
-        ref={divRef}
-        data-drag={isDragging}
-      >
+    <div
+      className={styles.link_wrapper}
+      ref={divRef}
+      data-drag={isDragging}
+      id='id'
+    >
 
-        <div className={styles.link_head}>
+      <div className={styles.link_head}>
 
-          <button
-            className={styles.drag_btn}
-            onMouseDown={startDrag}
-          >
+        <button
+          className={styles.drag_btn}
+          onMouseDown={startDrag}
+        >
 
-            <DragIcon />
+          <DragIcon />
 
-          </button>
+        </button>
 
-          <span>
-            Link #{index + 1}
-          </span>
+        <span>
+          Link #{index + 1}
+        </span>
 
-          <button
-            onClick={() => removeLink(id)}
-          >
-            Remove
-          </button>
-
-        </div>
-
-        <div className={styles.link_inputs}>
-
-          <Select
-            selectedPlatform={platform}
-            changePlatform={changePlatform}
-          />
-
-          <label htmlFor={`link-${id}`}>
-
-            <LinkIcon />
-
-            <span>
-              Link
-            </span>
-
-            <input
-              type="text"
-              name={`link-${id}`}
-              id={`link-${id}`}
-              placeholder='e.g. https://www.github.com/johnappleseed'
-              value={linkUrl}
-              onChange={handleChange}
-            />
-
-          </label>
-
-        </div>
+        <button
+          onClick={() => removeLink(id)}
+        >
+          Remove
+        </button>
 
       </div>
-      {isDragging && (
-        <div
-          ref={fillerRef}
-          style={{ 
-            height: fillerHeight, 
-            width: fillerWidth 
-          }}
-        ></div>
-      )}
-    </>
+
+      <div className={styles.link_inputs}>
+
+        <Select
+          selectedPlatform={platform}
+          changePlatform={changePlatform}
+        />
+
+        <label htmlFor={`link-${id}`}>
+
+          <LinkIcon />
+
+          <span>
+            Link
+          </span>
+
+          <input
+            type="text"
+            name={`link-${id}`}
+            id={`link-${id}`}
+            placeholder='e.g. https://www.github.com/johnappleseed'
+            value={linkUrl}
+            onChange={handleChange}
+          />
+
+        </label>
+
+      </div>
+
+    </div>
   )
 }
