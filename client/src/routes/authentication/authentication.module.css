@@ -1,4 +1,6 @@
 .main {
+    height: 100vh;
+    height: 100dvh;
     padding: 32px;
 }
 
@@ -8,9 +10,38 @@
     }
 }
 
+@media screen and (min-width: 481px) {
+    .main {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.header,
+.form {
+    width: 100%;
+    max-width: 476px;
+    margin-inline: auto;
+}
+
+@media screen and (min-width: 480px) {
+    .header,
+    .form {
+        padding: 20px;
+    }
+}
+
 .header {
     margin-top: 64px;
     margin-bottom: 40px;
+}
+
+@media screen and (min-width: 480px) {
+    .header {
+        margin-bottom: 20px;
+    }
 }
 
 .header p {
@@ -19,9 +50,6 @@
 
 .form {
     display: grid;
-}
-
-.form {
     row-gap: 24px;
     margin-bottom: 24px;
 }
