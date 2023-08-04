@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link } from "../contexts/DataContext"
+import { urlIsValid } from "../lib/urlValidator"
 
 export default function useForm(inputs?: React.RefObject<HTMLInputElement>[]) {
     const [formInvalid, setFormInvalid] = useState(false)
@@ -32,7 +33,7 @@ export default function useForm(inputs?: React.RefObject<HTMLInputElement>[]) {
 
         const input = link.inputRef.current
 
-        if (true) {
+        if (!urlIsValid(link.linkUrl, link.platform)) {
             input.setAttribute('data-valid-url', 'false')
 
             return false
