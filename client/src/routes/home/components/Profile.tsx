@@ -150,7 +150,7 @@ export default function Profile() {
                 <div className={styles.save_btn_container}>
 
                     <Button
-                        disabled={false}
+                        disabled={!userData.firstName || !userData.lastName}
                         onClick={handleSave}
                     >
                         Save

@@ -21,7 +21,7 @@
 
 .user_bare h2,
 .user_bare p {
-    width: 100%;
+    min-width: 160px;
     background-color: var(--clr-white-pri);
 }
 
