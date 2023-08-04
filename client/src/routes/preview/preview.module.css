@@ -1,3 +1,8 @@
+.main {
+    position: relative;
+    min-height: 100vh;
+}
+
 .btn_div {
     display: flex;
     justify-content: space-between;
