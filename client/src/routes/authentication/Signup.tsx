@@ -14,8 +14,7 @@ export default function Signup() {
 
     const {
         validateInput,
-        validateForm,
-        formInvalid
+        validateForm
     } = useForm([
         emailRef,
         passwordRef,
@@ -28,8 +27,7 @@ export default function Signup() {
         if (
             !emailRef.current ||
             !passwordRef.current ||
-            !passwordConfirmRef.current ||
-            formInvalid
+            !passwordConfirmRef.current
         ) return
     }
 

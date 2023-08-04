@@ -5,6 +5,8 @@ import NoLinks from './NoLinks'
 import EditableLink from '../../../components/editableLink/EditableLink'
 import { DataContext, Link } from '../../../contexts/DataContext'
 import useForm from '../../../hooks/useForm'
+import Toast from '../../../components/toast/Toast'
+import SavedIcon from '../../../assets/SavedIcon'
 
 export default function Links() {
     const { links, addLink, reorderLinks } = useContext(DataContext)
@@ -16,7 +18,9 @@ export default function Links() {
     const copyRef = useRef<HTMLDivElement>(null)
 
     const {
-        validateURL
+        validateURL,
+        submitForm,
+        success
     } = useForm()
 
     const dragEventListener = (e: MouseEvent) => {
@@ -92,7 +96,7 @@ export default function Links() {
             return
         }
 
-        
+        submitForm()
     }
 
     useEffect(() => {
@@ -106,69 +110,83 @@ export default function Links() {
     }, [targetLink, dragIdx])
 
     return (
-        <section className={styles.section}>
+        <>
 
-            <div className={styles.heading}>
+            <section className={styles.section}>
 
-                <h3>
-                    Customize your links
-                </h3>
+                <div className={styles.heading}>
 
-                <p>
-                    Add/edit/remove links below and then share all your profiles with the world!
-                </p>
+                    <h3>
+                        Customize your links
+                    </h3>
 
-                <Button
-                    alt
-                    onClick={addLink}
+                    <p>
+                        Add/edit/remove links below and then share all your profiles with the world!
+                    </p>
+
+                    <Button
+                        alt
+                        onClick={addLink}
+                    >
+                        &#43; Add new link
+                    </Button>
+
+                </div>
+
+                <div
+                    className={styles.links}
+                    ref={linksRef}
                 >
-                    &#43; Add new link
-                </Button>
 
-            </div>
+                    {
+                        links?.length > 0 ? (
+                            links.map((link, idx) => (
+                                <EditableLink
+                                    key={link.id}
+                                    index={idx}
+                                    isDragging={targetLink?.id === link.id}
+                                    startDrag={startDrag}
+                                    { ...link }
+                                />
+                            ))
+                        ) : (
+                            <NoLinks />
+                        )
+                    }
 
-            <div
-                className={styles.links}
-                ref={linksRef}
-            >
+                    {targetLink && <EditableLink
+                        index={dragIdx}
+                        copyRef={copyRef}
+                        isDragging={false}
+                        startDrag={null}
+                        { ...targetLink }
+                    />}
 
-                {
-                    links?.length > 0 ? (
-                        links.map((link, idx) => (
-                            <EditableLink
-                                key={link.id}
-                                index={idx}
-                                isDragging={targetLink?.id === link.id}
-                                startDrag={startDrag}
-                                { ...link }
-                            />
-                        ))
-                    ) : (
-                        <NoLinks />
-                    )
-                }
+                </div>
 
-                {targetLink && <EditableLink
-                    index={dragIdx}
-                    copyRef={copyRef}
-                    isDragging={false}
-                    startDrag={null}
-                    { ...targetLink }
-                />}
+                <div className={styles.save_btn_container}>
 
-            </div>
+                    <Button
+                        disabled={!links || links.length === 0}
+                        onClick={handleSave}
+                    >
+                        Save
+                    </Button>
 
-            <div className={styles.save_btn_container}>
+                </div>
 
-                <Button
-                    disabled={!links || links.length === 0}
-                    onClick={handleSave}
-                >
-                    Save
-                </Button>
+            </section>
 
-            </div>
+            {success && <Toast>
 
-        </section>
+                <SavedIcon />
+
+                <span>
+                    Your changes have been successfully saved!
+                </span>
+
+            </Toast>}
+
+        </>
     )
 }
