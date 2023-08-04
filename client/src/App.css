@@ -16,6 +16,22 @@ label {
     color: var(--clr-dark-grey);
 }
 
+label::after {
+    position: absolute;
+    right: 16px;
+    color: var(--clr-red);
+    bottom: 15px;
+    pointer-events: none;
+}
+
+label:has(input[type='email'].invalid)::after {
+    content: 'Can\'t be empty';
+}
+
+label:has(input[type='password'].invalid)::after {
+    content: 'Please check again';
+}
+
 label > svg:first-child {
     position: absolute;
     left: 16px;
@@ -31,11 +47,12 @@ input {
     height: 48px;
     border: 1px solid var(--clr-border);
     border-radius: var(--border-radius);
-}
-
-input {
     transition: 0.3s ease;
     caret-color: var(--clr-purple-pri);
+}
+
+label:has(input.invalid) span {
+    color: var(--clr-red);
 }
 
 input::placeholder {
@@ -47,4 +64,8 @@ input:is(:focus, :hover) {
     outline: none;
     border: 1px solid var(--clr-purple-pri);
     box-shadow: 0 0 32px var(--clr-purple-shadow);
+}
+
+input.invalid {
+    border-color: var(--clr-red);
 }

@@ -5,10 +5,27 @@ import Button from "../../components/button/Button"
 import EmailIcon from "../../assets/EmailIcon"
 import LockIcon from "../../assets/LockIcon"
 import styles from './authentication.module.css'
+import useForm from "../../hooks/useForm"
 
 export default function Login() {
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
+
+    const {
+        validateInput,
+        validateForm
+    } = useForm([
+        emailRef,
+        passwordRef
+    ])
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+
+        if (!emailRef.current || !passwordRef.current) {
+            return
+        }
+    }
 
     return (
         <main className={styles.main}>
@@ -27,7 +44,11 @@ export default function Login() {
 
             </div>
 
-            <form action="" className={styles.form}>
+            <form
+                action=""
+                className={styles.form}
+                onSubmit={handleSubmit}
+            >
 
                 <label htmlFor="email">
 
@@ -42,6 +63,7 @@ export default function Login() {
                         name="email"
                         id="email"
                         ref={emailRef}
+                        onChange={validateInput}
                         placeholder="e.g. alex@email.com"
                         required
                     />
@@ -61,13 +83,16 @@ export default function Login() {
                         name="password"
                         id="password"
                         ref={passwordRef}
+                        onChange={validateInput}
                         placeholder="Enter your password"
                         required
                     />
 
                 </label>
 
-                <Button>
+                <Button
+                    onClick={validateForm}
+                >
                     Login
                 </Button>
 

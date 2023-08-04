@@ -5,11 +5,25 @@ import Button from "../../components/button/Button"
 import EmailIcon from "../../assets/EmailIcon"
 import LockIcon from "../../assets/LockIcon"
 import styles from './authentication.module.css'
+import useForm from "../../hooks/useForm"
 
 export default function Signup() {
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
     const passwordConfirmRef = useRef<HTMLInputElement>(null)
+
+    const {
+        validateInput,
+        validateForm
+    } = useForm([
+        emailRef,
+        passwordRef,
+        passwordConfirmRef
+    ])
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+    }
 
     return (
         <main className={styles.main}>
@@ -28,7 +42,11 @@ export default function Signup() {
 
             </div>
 
-            <form action="" onSubmit={e => e.preventDefault()} className={styles.form}>
+            <form
+                action=""
+                onSubmit={handleSubmit}
+                className={styles.form}
+            >
 
                 <label htmlFor="email">
                     
@@ -44,6 +62,7 @@ export default function Signup() {
                         id="email"
                         ref={emailRef}
                         placeholder="e.g. alex@email.com"
+                        onChange={validateInput}
                         required
                     />
                     
@@ -63,6 +82,7 @@ export default function Signup() {
                         id="create-password"
                         ref={passwordRef}
                         placeholder="At least 8 characters"
+                        onChange={validateInput}
                         required
                     />
                     
@@ -82,6 +102,7 @@ export default function Signup() {
                         id="confirm-password"
                         ref={passwordConfirmRef}
                         placeholder="At least 8 characters"
+                        onChange={validateInput}
                         required
                     />
                     
@@ -91,7 +112,9 @@ export default function Signup() {
                     Password must contain at least 8 characters
                 </p>
 
-                <Button>
+                <Button
+                    onClick={validateForm}
+                >
                     Create new account
                 </Button>
 
