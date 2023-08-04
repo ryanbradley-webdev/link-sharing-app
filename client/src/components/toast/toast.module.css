@@ -12,6 +12,18 @@
     color: var(--clr-white-sec);
     background-color: var(--clr-dark-grey);
     border-radius: 12px;
+    opacity: 0;
+    animation:
+        fade-in 0.3s ease forwards,
+        fade-in 0.3s 3s ease reverse forwards;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    } to {
+        opacity: 1;
+    }
 }
 
 .toast svg {

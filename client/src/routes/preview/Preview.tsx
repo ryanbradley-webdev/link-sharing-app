@@ -43,17 +43,17 @@ export default function Preview() {
 
             <ProfilePreview />
 
-            {linkCopied && (
-                <Toast>
+            <Toast
+                isVisible={linkCopied}
+            >
 
-                    <LinksIconHeader />
+                <LinksIconHeader />
 
-                    <span>
-                        The link has been copied to your clipboard!
-                    </span>
+                <span>
+                    The link has been copied to your clipboard!
+                </span>
 
-                </Toast>
-            )}
+            </Toast>
 
         </main>
     )

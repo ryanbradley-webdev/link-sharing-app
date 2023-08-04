@@ -160,17 +160,18 @@ export default function Profile() {
                 
             </section>
 
-            {success && (
-                <Toast>
+            
+            <Toast
+                isVisible={success}
+            >
 
-                    <SavedIcon />
+                <SavedIcon />
 
-                    <span>
-                        Your changes have been successfully saved!
-                    </span>
+                <span>
+                    Your changes have been successfully saved!
+                </span>
 
-                </Toast>
-            )}
+            </Toast>
 
         </>
     )
