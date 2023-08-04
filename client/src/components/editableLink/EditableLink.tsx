@@ -5,6 +5,7 @@ import styles from './editableLink.module.css'
 import { DataContext } from '../../contexts/DataContext'
 import Select from './components/Select'
 import useForm from '../../hooks/useForm'
+import { generateMatchExp } from '../../lib/urlValidator'
 
 export default function EditableLink({
   index,
@@ -124,7 +125,7 @@ export default function EditableLink({
             type="text"
             name={`link-${id}`}
             id={`link-${id}`}
-            placeholder='e.g. https://www.github.com/johnappleseed'
+            placeholder={`e.g. ${generateMatchExp(platform)}johnappleseed`}
             value={linkUrl}
             onChange={handleChange}
             ref={linkRef}

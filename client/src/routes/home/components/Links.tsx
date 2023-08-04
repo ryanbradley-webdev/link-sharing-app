@@ -80,9 +80,19 @@ export default function Links() {
     }
 
     const handleSave = () => {
+        let isValid = true
+
         links.forEach(link => {
-            validateURL(link)
+            if (!validateURL(link)) {
+                isValid = false
+            }
         })
+
+        if (!isValid) {
+            return
+        }
+
+        
     }
 
     useEffect(() => {

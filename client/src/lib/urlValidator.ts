@@ -1,6 +1,6 @@
 import { PLATFORMS } from "./platforms"
 
-const generateMatchExp = (platform: string) => {
+export const generateMatchExp = (platform: string) => {
     switch (platform) {
         
         case PLATFORMS.GITHUB:
