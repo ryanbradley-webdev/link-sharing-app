@@ -24,8 +24,13 @@ label::after {
     pointer-events: none;
 }
 
-label:has(input[type='email'].invalid)::after {
+label:has(input[type='email'].invalid)::after,
+label:has(input[data-url='true'].invalid)::after {
     content: 'Can\'t be empty';
+}
+
+label:has(input[data-url='true'].invalid_url)::after {
+    content: 'Please check the URL';
 }
 
 label:has(input[type='password'].invalid)::after {

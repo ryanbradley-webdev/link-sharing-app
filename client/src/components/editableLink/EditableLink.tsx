@@ -1,9 +1,10 @@
-import { useContext, useRef } from 'react'
+import { useContext, useRef, useState } from 'react'
 import DragIcon from '../../assets/DragIcon'
 import LinkIcon from '../../assets/LinkIcon'
 import styles from './editableLink.module.css'
 import { DataContext } from '../../contexts/DataContext'
 import Select from './components/Select'
+import useForm from '../../hooks/useForm'
 
 export default function EditableLink({
   index,
@@ -26,9 +27,18 @@ export default function EditableLink({
 }) {
   const { removeLink, updateLink } = useContext(DataContext)
 
+  const [isValid, setIsValid] = useState(true)
+
   const divRef = useRef<HTMLDivElement>(null)
+  const linkRef = useRef<HTMLInputElement>(null)
+
+  const {
+    validateInput
+  } = useForm([linkRef])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    validateInput(e)
+
     updateLink({
       id,
       linkUrl: e.target.value,
@@ -109,6 +119,9 @@ export default function EditableLink({
             placeholder='e.g. https://www.github.com/johnappleseed'
             value={linkUrl}
             onChange={handleChange}
+            ref={linkRef}
+            data-valid-url={isValid}
+            data-url
           />
 
         </label>

@@ -13,7 +13,8 @@ export default function Login() {
 
     const {
         validateInput,
-        validateForm
+        validateForm,
+        formInvalid
     } = useForm([
         emailRef,
         passwordRef
@@ -22,9 +23,11 @@ export default function Login() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
 
-        if (!emailRef.current || !passwordRef.current) {
-            return
-        }
+        if (
+            !emailRef.current ||
+            !passwordRef.current ||
+            formInvalid
+        ) return
     }
 
     return (

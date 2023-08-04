@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function useForm(inputs: React.RefObject<HTMLInputElement>[]) {
+export default function useForm(inputs?: React.RefObject<HTMLInputElement>[]) {
     const [formInvalid, setFormInvalid] = useState(false)
 
     const validateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -12,7 +12,7 @@ export default function useForm(inputs: React.RefObject<HTMLInputElement>[]) {
     }
 
     const validateForm = () => {
-        inputs.forEach(input => {
+        inputs?.forEach(input => {
             if (!input.current) return
 
             if (!input.current.value) {
@@ -22,9 +22,19 @@ export default function useForm(inputs: React.RefObject<HTMLInputElement>[]) {
         })
     }
 
+    const validateURL = (e: React.ChangeEvent<HTMLInputElement>, platform: string) => {
+        if (true) {
+            e.target.classList.remove('invalid')
+            e.target.classList.add('invalid_url')
+        } else {
+            validateInput(e)
+        }
+    }
+
     return {
         validateInput,
         validateForm,
+        validateURL,
         formInvalid
     }
 }

@@ -4,6 +4,7 @@ import styles from '../home.module.css'
 import NoLinks from './NoLinks'
 import EditableLink from '../../../components/editableLink/EditableLink'
 import { DataContext, Link } from '../../../contexts/DataContext'
+import useForm from '../../../hooks/useForm'
 
 export default function Links() {
     const { links, addLink, reorderLinks } = useContext(DataContext)
@@ -13,6 +14,10 @@ export default function Links() {
 
     const linksRef = useRef<HTMLDivElement>(null)
     const copyRef = useRef<HTMLDivElement>(null)
+
+    const {
+        validateURL
+    } = useForm()
 
     const dragEventListener = (e: MouseEvent) => {
         const mousePosition = e.clientY
@@ -72,6 +77,10 @@ export default function Links() {
                 window.removeEventListener('mousemove', dragEventListener)
             }
         }
+    }
+
+    const handleSave = () => {
+        
     }
 
     useEffect(() => {
@@ -141,6 +150,7 @@ export default function Links() {
 
                 <Button
                     disabled={!links || links.length === 0}
+                    onClick={handleSave}
                 >
                     Save
                 </Button>
