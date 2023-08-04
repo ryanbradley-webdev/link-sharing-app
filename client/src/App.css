@@ -29,12 +29,12 @@ label:has(input[data-url='true'].invalid)::after {
     content: 'Can\'t be empty';
 }
 
-label:has(input[data-url='true'].invalid_url)::after {
-    content: 'Please check the URL';
-}
-
 label:has(input[type='password'].invalid)::after {
     content: 'Please check again';
+}
+
+label:has(input[type='text'][data-valid-url='false'])::after {
+    content: 'Please check the URL';
 }
 
 label > svg:first-child {
@@ -56,7 +56,7 @@ input {
     caret-color: var(--clr-purple-pri);
 }
 
-label:has(input.invalid) span {
+label:has(input.invalid, input[data-valid-url='false']) span {
     color: var(--clr-red);
 }
 
@@ -71,6 +71,7 @@ input:is(:focus, :hover) {
     box-shadow: 0 0 32px var(--clr-purple-shadow);
 }
 
-input.invalid {
+input.invalid,
+input[data-valid-url='false'] {
     border-color: var(--clr-red);
 }

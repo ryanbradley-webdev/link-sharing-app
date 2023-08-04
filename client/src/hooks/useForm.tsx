@@ -1,9 +1,14 @@
 import { useState } from "react"
+import { Link } from "../contexts/DataContext"
 
 export default function useForm(inputs?: React.RefObject<HTMLInputElement>[]) {
     const [formInvalid, setFormInvalid] = useState(false)
 
     const validateInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.hasAttribute('data-valid-url') && e.target.getAttribute('data-valid-url') === 'false') {
+            e.target.setAttribute('data-valid-url', 'true')
+        }
+
         if (!e.target.value) {
             e.target.classList.add('invalid')
         } else {
@@ -22,12 +27,19 @@ export default function useForm(inputs?: React.RefObject<HTMLInputElement>[]) {
         })
     }
 
-    const validateURL = (e: React.ChangeEvent<HTMLInputElement>, platform: string) => {
+    const validateURL = (link: Link) => {
+        if (!link.inputRef?.current) return
+
+        const input = link.inputRef.current
+
         if (true) {
-            e.target.classList.remove('invalid')
-            e.target.classList.add('invalid_url')
+            input.setAttribute('data-valid-url', 'false')
+
+            return false
         } else {
-            validateInput(e)
+            input.setAttribute('data-valid-url', 'true')
+
+            return true
         }
     }
 

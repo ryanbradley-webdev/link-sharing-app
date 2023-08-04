@@ -9,6 +9,7 @@ type DataContext = {
     addLink: () => void
     removeLink: (id: string) => void
     updateLink: (updatedLink: Link) => void
+    addRef: (id: string, ref: React.RefObject<HTMLInputElement>) => void
     reorderLinks: (targetId: string, newIdx: number) => void
     updateFirstName: (newName: string) => void
     updateLastName: (newName: string) => void
@@ -20,6 +21,7 @@ export type Link = {
     id: string,
     platform: string
     linkUrl: string
+    inputRef: React.RefObject<HTMLInputElement> | null
 }
 
 export type UserData = {
@@ -31,7 +33,8 @@ export type UserData = {
 
 const blankLink = {
     platform: PLATFORMS.GITHUB,
-    linkUrl: ''
+    linkUrl: '',
+    inputRef: null
 }
 
 const blankUser = {
@@ -67,6 +70,19 @@ export default function DataProvider({ children }: { children: ReactNode }) {
         setLinks(prevLinks => prevLinks.map(link => {
             if (link.id === updatedLink.id) {
                 return updatedLink
+            }
+
+            return link
+        }))
+    }
+
+    const addRef = (id: string, ref: React.RefObject<HTMLInputElement>) => {
+        setLinks(prevLinks => prevLinks.map(link => {
+            if (link.id === id) {
+                return {
+                    ...link,
+                    inputRef: ref
+                }
             }
 
             return link
@@ -131,6 +147,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
         addLink,
         removeLink,
         updateLink,
+        addRef,
         reorderLinks,
         updateFirstName,
         updateLastName,

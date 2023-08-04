@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import DragIcon from '../../assets/DragIcon'
 import LinkIcon from '../../assets/LinkIcon'
 import styles from './editableLink.module.css'
@@ -11,6 +11,7 @@ export default function EditableLink({
   id,
   linkUrl,
   platform,
+  inputRef,
   initialTop,
   startDrag,
   isDragging,
@@ -20,14 +21,13 @@ export default function EditableLink({
   id: string
   linkUrl: string
   platform: string
+  inputRef: React.RefObject<HTMLInputElement> | null
   initialTop?: string
   startDrag: ((id: string, top: number) => void) | null
   isDragging: boolean
   copyRef?: React.RefObject<HTMLDivElement>
 }) {
-  const { removeLink, updateLink } = useContext(DataContext)
-
-  const [isValid, setIsValid] = useState(true)
+  const { removeLink, updateLink, addRef } = useContext(DataContext)
 
   const divRef = useRef<HTMLDivElement>(null)
   const linkRef = useRef<HTMLInputElement>(null)
@@ -42,7 +42,8 @@ export default function EditableLink({
     updateLink({
       id,
       linkUrl: e.target.value,
-      platform
+      platform,
+      inputRef
     })
   }
 
@@ -50,7 +51,8 @@ export default function EditableLink({
     updateLink({
       id,
       linkUrl,
-      platform: newPlatform
+      platform: newPlatform,
+      inputRef
     })
   }
 
@@ -61,6 +63,12 @@ export default function EditableLink({
       startDrag(id, top)
     }
   }
+
+  useEffect(() => {
+    if (linkRef && !inputRef) {
+      addRef(id, linkRef)
+    }
+  }, [id, inputRef, addRef])
 
   return (
     <div
@@ -120,7 +128,6 @@ export default function EditableLink({
             value={linkUrl}
             onChange={handleChange}
             ref={linkRef}
-            data-valid-url={isValid}
             data-url
           />
 

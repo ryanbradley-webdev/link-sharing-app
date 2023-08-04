@@ -80,7 +80,9 @@ export default function Links() {
     }
 
     const handleSave = () => {
-        
+        links.forEach(link => {
+            validateURL(link)
+        })
     }
 
     useEffect(() => {
