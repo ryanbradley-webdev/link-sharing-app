@@ -1,8 +1,8 @@
 import { ReactNode, createContext, useState } from 'react'
-import { Link, UserData } from './DataContext'
+import { User } from '../../types'
 import axios from 'axios'
 
-type AuthContext = {
+export type AuthContext = {
     user: null | User
     session: unknown
     login: (email: string, password: string) => Promise<boolean>
@@ -12,12 +12,6 @@ type AuthContext = {
     signupError: boolean
     passwordMismatch: boolean
     shortPassword: boolean
-}
-
-type User = {
-    id: string
-    userData: UserData
-    links: Link[]
 }
 
 export const AuthContext = createContext({} as AuthContext)

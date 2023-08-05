@@ -3,8 +3,9 @@ import { PLATFORMS } from '../lib/platforms'
 import { AuthContext } from './AuthContext'
 import { getLinks } from '../lib/getLinks'
 import { getUserData } from '../lib/getUserData'
+import { Link, UserData } from '../../types'
 
-type DataContext = {
+export type DataContext = {
     links: Link[]
     linkOrder: string[]
     userData: UserData
@@ -18,20 +19,6 @@ type DataContext = {
     updateLastName: (newName: string) => void
     updateEmail: (newEmail: string) => void
     previewImg: (e: React.ChangeEvent<HTMLInputElement>) => void
-}
-
-export type Link = {
-    id: string,
-    platform: string
-    linkUrl: string
-    inputRef: React.RefObject<HTMLInputElement> | null
-}
-
-export type UserData = {
-    firstName: string
-    lastName: string
-    email: string
-    image: string
 }
 
 const blankLink = {

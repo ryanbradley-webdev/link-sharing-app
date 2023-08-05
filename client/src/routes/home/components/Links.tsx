@@ -3,10 +3,11 @@ import Button from '../../../components/button/Button'
 import styles from '../home.module.css'
 import NoLinks from './NoLinks'
 import EditableLink from '../../../components/editableLink/EditableLink'
-import { DataContext, Link } from '../../../contexts/DataContext'
+import { DataContext } from '../../../contexts/DataContext'
 import useForm from '../../../hooks/useForm'
 import Toast from '../../../components/toast/Toast'
 import SavedIcon from '../../../assets/SavedIcon'
+import { Link } from '../../../../types'
 
 export default function Links() {
     const { links, addLink, reorderLinks } = useContext(DataContext)
