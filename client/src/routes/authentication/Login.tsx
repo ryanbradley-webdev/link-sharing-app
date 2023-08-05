@@ -36,7 +36,7 @@ export default function Login() {
             !passwordRef.current
         ) return
 
-        const success = login(emailRef.current.value, passwordRef.current.value)
+        const success = await login(emailRef.current.value, passwordRef.current.value)
 
         if (success) {
             navigate('/')

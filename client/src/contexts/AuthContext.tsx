@@ -1,12 +1,11 @@
 import { ReactNode, createContext, useState } from 'react'
 import { Link, UserData } from './DataContext'
-import { PLATFORMS } from '../lib/platforms'
 import axios from 'axios'
 
 type AuthContext = {
     user: null | User
     session: unknown
-    login: (email: string, password: string) => boolean
+    login: (email: string, password: string) => Promise<boolean>
     signup: (email: string, password: string, passwordConfirm: string) => Promise<boolean>
     loginFailed: boolean
     loginError: boolean
@@ -32,36 +31,34 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     const [passwordMismatch, setPasswordMismatch] = useState(false)
     const [shortPassword, setShortPassword] = useState(false)
 
-    const login = (email: string, password: string) => {
+    const apiUrl =
+        import.meta.env.VITE_ENVIRONMENT === 'development' ?
+        import.meta.env.VITE_DEV_API_URL :
+        import.meta.env.VITE_API_URL
+
+    const login = async (email: string, password: string) => {
         if (!email || !password) return false
 
         setLoginFailed(false)
 
         try {
-            if (email !== 'test@email.com' || password !== 'password1234') {
-                setLoginFailed(true)
-                return false
-            }
-
-            setUser({
-                id: crypto.randomUUID(),
-                userData: {
-                    image: '',
-                    firstName: 'Tester',
-                    lastName: 'McGee',
-                    email: 'test@email.com'
-                },
-                links: [
-                    {
-                        id: crypto.randomUUID(),
-                        platform: PLATFORMS.GITHUB,
-                        linkUrl: 'https://github.com/ryanbradley-webdev',
-                        inputRef: null
-                    }
-                ]
+            const { data, status } = await axios.post(apiUrl + 'login', {
+                email,
+                password
             })
 
-            return true
+            if (status === 200) {
+                const { user, session } = data
+
+                setUser(user)
+                setSession(session)
+
+                return true
+            } else {
+                setLoginFailed(true)
+
+                return false
+            }
 
         } catch (e) {
 
@@ -90,11 +87,6 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         }
 
         try {
-            const apiUrl =
-                import.meta.env.VITE_ENVIRONMENT === 'development' ?
-                import.meta.env.VITE_DEV_API_URL :
-                import.meta.env.VITE_API_URL
-
             if (!apiUrl) throw new Error()
 
             const { data, status } = await axios.post(apiUrl + 'signup', {
@@ -108,10 +100,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
                 setUser(user)
                 setSession(session)
 
-                console.log(user)
+                return true
+            } else {
+                return false
             }
-
-            return true
 
         } catch (e) {
 
