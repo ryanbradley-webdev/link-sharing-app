@@ -5,6 +5,7 @@ const cors = require('cors')
 const { createClient } = require('@supabase/supabase-js')
 
 const linksRouter = require('./links')
+const userDataRouter = require('./userData')
 
 const supabase = createClient(
     process.env.SUPABASE_URL,
@@ -17,6 +18,7 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/links', linksRouter)
+app.use('/userData', userDataRouter)
 
 app.post('/signup', async (req, res) => {
     const { email, password } = req.body

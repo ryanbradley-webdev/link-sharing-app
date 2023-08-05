@@ -2,6 +2,7 @@ import { ReactNode, createContext, useEffect, useState, useContext } from 'react
 import { PLATFORMS } from '../lib/platforms'
 import { AuthContext } from './AuthContext'
 import { getLinks } from '../lib/getLinks'
+import { getUserData } from '../lib/getUserData'
 
 type DataContext = {
     links: Link[]
@@ -143,12 +144,6 @@ export default function DataProvider({ children }: { children: ReactNode }) {
         setUploadedImg(imgSrc)
     }
 
-    const loadLinks = async (userId: string) => {
-        const data = await getLinks(userId)
-
-        setLinks(data)
-    }
-
     const value = {
         links,
         linkOrder,
@@ -170,8 +165,25 @@ export default function DataProvider({ children }: { children: ReactNode }) {
     }, [links])
 
     useEffect(() => {
+        const loadLinks = async () => {
+            if (user?.id) {
+                const data = await getLinks(user.id)
+    
+                setLinks(data)
+            }
+        }
+    
+        const loadUserData = async () => {
+            if (user?.id) {
+                const data = await getUserData(user.id)
+    
+                setUserData(data)
+            }
+        }
+
         if (user) {
-            loadLinks(user.id)
+            loadLinks()
+            loadUserData()
         }
     }, [user])
 
