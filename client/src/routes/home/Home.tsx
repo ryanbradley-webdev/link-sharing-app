@@ -10,16 +10,18 @@ import ProfilePreview from '../../components/profilePreview/ProfilePreview'
 import Phone from '../../assets/Phone'
 
 export default function Home() {
-    const { user } = useContext(AuthContext)
+    const {
+        user
+    } = useContext(AuthContext)
 
     const [page, setPage] = useState('links')
 
     const navigate = useNavigate()
 
     useEffect(() => {
-        /* if (!user) {
+        if (!user) {
             navigate('/login')
-        } */
+        }
     }, [user, navigate])
 
     return (

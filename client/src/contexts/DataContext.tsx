@@ -1,5 +1,6 @@
-import { ReactNode, createContext, useEffect, useState } from 'react'
+import { ReactNode, createContext, useEffect, useState, useContext } from 'react'
 import { PLATFORMS } from '../lib/platforms'
+import { AuthContext } from './AuthContext'
 
 type DataContext = {
     links: Link[]
@@ -47,6 +48,8 @@ const blankUser = {
 export const DataContext = createContext({} as DataContext)
 
 export default function DataProvider({ children }: { children: ReactNode }) {
+    const { user } = useContext(AuthContext)
+
     const [links, setLinks] = useState<Link[]>([])
     const [userData, setUserData] = useState<UserData>(blankUser)
     const [uploadedImg, setUploadedImg] = useState<string>('')
@@ -158,6 +161,13 @@ export default function DataProvider({ children }: { children: ReactNode }) {
     useEffect(() => {
         setLinkOrder(links.map(link => link.id))
     }, [links])
+
+    useEffect(() => {
+        if (user) {
+            setLinks(user.links)
+            setUserData(user.userData)
+        }
+    }, [user])
 
     return (
         <DataContext.Provider value={value}>

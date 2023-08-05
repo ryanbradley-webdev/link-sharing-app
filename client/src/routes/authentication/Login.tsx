@@ -1,34 +1,48 @@
-import { useRef } from "react"
-import { Link } from "react-router-dom"
+import { useRef, useContext, useEffect } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import DevlinksLogoLg from "../../assets/DevlinksLogoLg"
 import Button from "../../components/button/Button"
 import EmailIcon from "../../assets/EmailIcon"
 import LockIcon from "../../assets/LockIcon"
 import styles from './authentication.module.css'
 import useForm from "../../hooks/useForm"
+import { AuthContext } from "../../contexts/AuthContext"
 
 export default function Login() {
+    const {
+        user,
+        login
+    } = useContext(AuthContext)
+
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
 
     const {
         validateInput,
-        validateForm,
-        formInvalid
+        validateForm
     } = useForm([
         emailRef,
         passwordRef
     ])
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const navigate = useNavigate()
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
         if (
             !emailRef.current ||
-            !passwordRef.current ||
-            formInvalid
+            !passwordRef.current
         ) return
+
+        login(emailRef.current.value, passwordRef.current.value)
     }
+
+    useEffect(() => {
+        if (user) {
+            navigate('/')
+        }
+    }, [user, navigate])
 
     return (
         <main className={styles.main}>
