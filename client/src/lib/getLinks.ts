@@ -25,7 +25,7 @@ export const getLinks = async (userId: string) => {
 
         links.forEach((link: unknown) => {
             if (dataIsLink(link)) {
-                verifiedLinks.push({ ...link, id: link.id.toString() })
+                verifiedLinks.push(link)
             }
         })
 

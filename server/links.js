@@ -29,7 +29,7 @@ router.get('/', async (req, res) => {
     }
 
     try {
-        const { data, error } = await supabase.from('links').select().filter('userId', 'eq', userId)
+        const { data, error } = await supabase.from('userData').select('links').filter('userId', 'eq', userId)
 
         if (error) {
             responseData.error = error
@@ -37,7 +37,40 @@ router.get('/', async (req, res) => {
             return res.status(404).json(responseData)
         }
 
-        responseData.links = data
+        responseData.links = data[0].links
+
+        res.json(responseData)
+    } catch (e) {
+        responseData.error = e
+
+        res.status(500).json(responseData)
+    }
+})
+
+router.patch('/', async (req, res) => {
+    const { userId, links } = req.body
+
+    const responseData = {
+        success: false,
+        error: null
+    }
+
+    if (!userId || !links) {
+        responseData.error = 'No user ID'
+
+        return res.status(400).json(responseData)
+    }
+
+    try {
+        const { error } = await supabase.from('userData').update({ links }).eq('userId', userId)
+
+        if (error) {
+            responseData.error = error
+
+            return res.status(404).json(responseData)
+        }
+
+        responseData.success = true
 
         res.json(responseData)
     } catch (e) {

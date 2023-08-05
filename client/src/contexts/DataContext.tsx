@@ -1,13 +1,15 @@
 import { ReactNode, createContext, useEffect, useState, useContext } from 'react'
 import { PLATFORMS } from '../lib/platforms'
 import { AuthContext } from './AuthContext'
-import { getLinks } from '../lib/getLinks'
 import { getUserData } from '../lib/getUserData'
-import { Link, UserData } from '../../types'
+import { Link, UserInfo } from '../../types'
+import { dataIsLink } from '../lib/typeCheck'
+import { getLinks } from '../lib/getLinks'
+import { saveLinks } from '../lib/saveLinks'
 
 export type DataContext = {
     links: Link[]
-    userData: UserData
+    userData: UserInfo
     uploadedImg: string
     addLink: () => void
     removeLink: (id: string) => void
@@ -18,6 +20,7 @@ export type DataContext = {
     updateLastName: (newName: string) => void
     updateEmail: (newEmail: string) => void
     previewImg: (e: React.ChangeEvent<HTMLInputElement>) => void
+    saveLinksToDb: () => Promise<null | undefined>
 }
 
 const blankLink = {
@@ -39,7 +42,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
     const { user } = useContext(AuthContext)
 
     const [links, setLinks] = useState<Link[]>([])
-    const [userData, setUserData] = useState<UserData>(blankUser)
+    const [userData, setUserData] = useState<UserInfo>(blankUser)
     const [uploadedImg, setUploadedImg] = useState<string>('')
 
     const addLink = () => {
@@ -78,6 +81,28 @@ export default function DataProvider({ children }: { children: ReactNode }) {
 
             return link
         }))
+    }
+
+    const loadLinks = async () => {
+        if (user) {
+            const links = await getLinks(user.id)
+
+            setLinks(links.map(link => ({
+                ...link,
+                id: crypto.randomUUID(),
+                inputRef: null
+            })))
+        }
+    }
+
+    const saveLinksToDb = async () => {
+        if (user) {
+            await saveLinks(user.id, links)
+
+            loadLinks()
+
+            return null
+        }
     }
 
     const reorderLinks = (targetId: string, newIdx: number) => {
@@ -147,28 +172,32 @@ export default function DataProvider({ children }: { children: ReactNode }) {
         updateFirstName,
         updateLastName,
         updateEmail,
-        previewImg
+        previewImg,
+        saveLinksToDb
     }
 
     useEffect(() => {
-        const loadLinks = async () => {
-            if (user?.id) {
-                const data = await getLinks(user.id)
-    
-                setLinks(data)
-            }
-        }
-    
         const loadUserData = async () => {
             if (user?.id) {
                 const data = await getUserData(user.id)
+
+                if (!data) return
+
+                const { userInfo, links } = data
     
-                setUserData(data)
+                setUserData(userInfo)
+
+                const formattedLinks = links.filter((link: unknown) => dataIsLink(link))
+                
+                setLinks(formattedLinks.map(link => ({
+                    ...link,
+                    id: crypto.randomUUID(),
+                    inputRef: null
+                })))
             }
         }
 
         if (user) {
-            loadLinks()
             loadUserData()
         }
     }, [user])

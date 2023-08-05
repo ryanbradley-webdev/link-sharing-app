@@ -10,18 +10,17 @@ import SavedIcon from '../../../assets/SavedIcon'
 import { Link } from '../../../../types'
 
 export default function Links() {
-    const { links, addLink, reorderLinks } = useContext(DataContext)
+    const { links, addLink, reorderLinks, saveLinksToDb } = useContext(DataContext)
 
     const [dragIdx, setDragIdx] = useState<null | number>(null)
     const [targetLink, setTargetLink] = useState<null | Link>(null)
+    const [success, setSuccess] = useState(false)
 
     const linksRef = useRef<HTMLDivElement>(null)
     const copyRef = useRef<HTMLDivElement>(null)
 
     const {
-        validateURL,
-        submitForm,
-        success
+        validateURL
     } = useForm()
 
     const dragEventListener = (e: MouseEvent) => {
@@ -97,7 +96,14 @@ export default function Links() {
             return
         }
 
-        submitForm()
+        saveLinksToDb()
+            .then(() => {
+                setSuccess(true)
+
+                setTimeout(() => {
+                    setSuccess(false)
+                }, 3500)
+            })
     }
 
     useEffect(() => {

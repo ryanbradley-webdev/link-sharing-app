@@ -13,11 +13,15 @@ export type Link = {
     listIndex: number
 }
 
-export type UserData = {
+export type UserInfo = {
     firstName: string
     lastName: string
     email: string
     image: string
+}
+
+export type UserData = UserInfo & {
+    links: Link[]
 }
 
 export type APIData = unknown[] | unknown
