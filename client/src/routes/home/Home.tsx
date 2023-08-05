@@ -42,7 +42,6 @@ export default function Home() {
 
                     </section>
 
-
                     {page === 'links' ? <Links /> : <Profile />}
 
                 </main>
