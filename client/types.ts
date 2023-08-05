@@ -10,6 +10,7 @@ export type Link = {
     platform: string
     linkUrl: string
     inputRef: React.RefObject<HTMLInputElement> | null
+    listIndex: number
 }
 
 export type UserData = {
@@ -18,3 +19,5 @@ export type UserData = {
     email: string
     image: string
 }
+
+export type APIData = unknown[] | unknown

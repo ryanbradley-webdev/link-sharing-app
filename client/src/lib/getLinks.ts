@@ -1,4 +1,6 @@
 import axios from 'axios'
+import { Link } from '../../types'
+import { dataIsLink } from './typeCheck'
 
 export const getLinks = async (userId: string) => {
     const apiUrl =
@@ -19,7 +21,15 @@ export const getLinks = async (userId: string) => {
     if (res && res.status === 200) {
         const { links } = res.data
 
-        return links
+        const verifiedLinks: Link[] = []
+
+        links.forEach((link: unknown) => {
+            if (dataIsLink(link)) {
+                verifiedLinks.push({ ...link, id: link.id.toString() })
+            }
+        })
+
+        return verifiedLinks
     } else {
         return []
     }

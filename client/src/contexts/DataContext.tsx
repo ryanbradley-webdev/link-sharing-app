@@ -47,7 +47,8 @@ export default function DataProvider({ children }: { children: ReactNode }) {
             ...prevLinks,
             {
                 ...blankLink,
-                id: crypto.randomUUID()
+                id: crypto.randomUUID(),
+                listIndex: prevLinks.length
             }
         ]))
     }
@@ -90,11 +91,16 @@ export default function DataProvider({ children }: { children: ReactNode }) {
 
         const postfixedLinks = otherLinks.slice(newIdx, otherLinks.length)
 
-        setLinks([
+        const reorderedLinks = [
             ...prefixedLinks,
             targetLink,
             ...postfixedLinks
-        ])
+        ]
+
+        setLinks(reorderedLinks.map((link, idx) => ({
+            ...link,
+            listIndex: idx
+        })))
     }
 
     const updateFirstName = (newName: string) => {

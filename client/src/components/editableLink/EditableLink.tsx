@@ -13,6 +13,7 @@ export default function EditableLink({
   linkUrl,
   platform,
   inputRef,
+  listIndex,
   initialTop,
   startDrag,
   isDragging,
@@ -23,6 +24,7 @@ export default function EditableLink({
   linkUrl: string
   platform: string
   inputRef: React.RefObject<HTMLInputElement> | null
+  listIndex: number
   initialTop?: string
   startDrag: ((id: string, top: number) => void) | null
   isDragging: boolean
@@ -44,7 +46,8 @@ export default function EditableLink({
       id,
       linkUrl: e.target.value,
       platform,
-      inputRef
+      inputRef,
+      listIndex
     })
   }
 
@@ -53,7 +56,8 @@ export default function EditableLink({
       id,
       linkUrl,
       platform: newPlatform,
-      inputRef
+      inputRef,
+      listIndex
     })
   }
 
