@@ -7,7 +7,6 @@ import { DataContext } from '../../../contexts/DataContext'
 import useForm from '../../../hooks/useForm'
 import Toast from '../../../components/toast/Toast'
 import SavedIcon from '../../../assets/SavedIcon'
-import { Link } from '../../../../types'
 
 export default function Links() {
     const { links, addLink, reorderLinks, saveLinksToDb } = useContext(DataContext)

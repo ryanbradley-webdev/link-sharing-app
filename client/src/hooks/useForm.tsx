@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { Link } from "../contexts/DataContext"
 import { urlIsValid } from "../lib/urlValidator"
 
 export default function useForm(inputs?: React.RefObject<HTMLInputElement>[]) {

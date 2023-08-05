@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { Link } from '../../types'
+import { Link } from '../types'
 import { dataIsLink } from './typeCheck'
 
 export const getLinks = async (userId: string) => {

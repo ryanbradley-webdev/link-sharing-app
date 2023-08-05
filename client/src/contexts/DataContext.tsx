@@ -2,26 +2,9 @@ import { ReactNode, createContext, useEffect, useState, useContext } from 'react
 import { PLATFORMS } from '../lib/platforms'
 import { AuthContext } from './AuthContext'
 import { getUserData } from '../lib/getUserData'
-import { Link, UserInfo } from '../../types'
 import { dataIsLink } from '../lib/typeCheck'
 import { getLinks } from '../lib/getLinks'
 import { saveLinks } from '../lib/saveLinks'
-
-export type DataContext = {
-    links: Link[]
-    userData: UserInfo
-    uploadedImg: string
-    addLink: () => void
-    removeLink: (id: string) => void
-    updateLink: (updatedLink: Link) => void
-    addRef: (id: string, ref: React.RefObject<HTMLInputElement>) => void
-    reorderLinks: (targetId: string, newIdx: number) => void
-    updateFirstName: (newName: string) => void
-    updateLastName: (newName: string) => void
-    updateEmail: (newEmail: string) => void
-    previewImg: (e: React.ChangeEvent<HTMLInputElement>) => void
-    saveLinksToDb: () => Promise<null | undefined>
-}
 
 const blankLink = {
     platform: PLATFORMS.GITHUB,
@@ -187,7 +170,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
     
                 setUserData(userInfo)
 
-                const formattedLinks = links.filter((link: unknown) => dataIsLink(link))
+                const formattedLinks: Link[] = links.filter((link: unknown) => dataIsLink(link))
                 
                 setLinks(formattedLinks.map(link => ({
                     ...link,

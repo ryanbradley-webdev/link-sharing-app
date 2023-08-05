@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { Link } from '../../types'
 
 export const saveLinks = async (userId: string, links: Link[]) => {
     const apiUrl =

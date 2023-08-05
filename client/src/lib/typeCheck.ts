@@ -1,5 +1,3 @@
-import { Link, UserData } from "../../types";
-
 export const dataIsLink = (data: unknown): data is Link => {
     if (!data) return false
 

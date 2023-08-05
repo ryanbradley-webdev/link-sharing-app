@@ -1,5 +1,4 @@
 import RightArrowIcon from '../../assets/RightArrowIcon'
-import { Link } from '../../contexts/DataContext'
 import { generateBackgroundColor } from '../../lib/generateBackgroundColor'
 import { generatePlatformIcon } from '../../lib/generatePlatformIcon'
 import { PLATFORMS } from '../../lib/platforms'
