@@ -1,5 +1,6 @@
 export type User = {
     id: string
+    email: string
     userData: UserData
     links: Link[]
 }
