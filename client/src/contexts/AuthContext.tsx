@@ -4,7 +4,9 @@ import { PLATFORMS } from '../lib/platforms'
 
 type AuthContext = {
     user: null | User
-    login: (email: string, password: string) => void
+    login: (email: string, password: string) => boolean
+    loginFailed: boolean
+    loginError: boolean
 }
 
 type User = {
@@ -17,11 +19,20 @@ export const AuthContext = createContext({} as AuthContext)
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null)
+    const [loginFailed, setLoginFailed] = useState(false)
+    const [loginError, setLoginError] = useState(false)
 
     const login = (email: string, password: string) => {
-        if (!email || !password) return
+        if (!email || !password) return false
+
+        setLoginFailed(false)
 
         try {
+            if (email !== 'test@email.com' || password !== 'password1234') {
+                setLoginFailed(true)
+                return false
+            }
+
             setUser({
                 id: crypto.randomUUID(),
                 userData: {
@@ -39,14 +50,23 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
                     }
                 ]
             })
+
+            return true
+
         } catch (e) {
+
             setUser(null)
+            setLoginError(true)
+
+            return false
         }
     }
 
     const value = {
         user,
-        login
+        login,
+        loginFailed,
+        loginError
     }
 
     return (

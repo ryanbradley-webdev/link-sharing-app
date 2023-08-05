@@ -1,4 +1,4 @@
-import { useRef, useContext, useEffect } from "react"
+import { useRef, useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import DevlinksLogoLg from "../../assets/DevlinksLogoLg"
 import Button from "../../components/button/Button"
@@ -10,8 +10,9 @@ import { AuthContext } from "../../contexts/AuthContext"
 
 export default function Login() {
     const {
-        user,
-        login
+        login,
+        loginFailed,
+        loginError
     } = useContext(AuthContext)
 
     const emailRef = useRef<HTMLInputElement>(null)
@@ -35,14 +36,12 @@ export default function Login() {
             !passwordRef.current
         ) return
 
-        login(emailRef.current.value, passwordRef.current.value)
-    }
+        const success = login(emailRef.current.value, passwordRef.current.value)
 
-    useEffect(() => {
-        if (user) {
+        if (success) {
             navigate('/')
         }
-    }, [user, navigate])
+    }
 
     return (
         <main className={styles.main}>
@@ -106,6 +105,14 @@ export default function Login() {
                     />
 
                 </label>
+
+                {loginFailed && <p className={styles.login_failure}>
+                    Please check your login credentials
+                </p>}
+
+                {loginError && <p className={styles.login_failure}>
+                    Something went wrong
+                </p>}
 
                 <Button
                     onClick={validateForm}

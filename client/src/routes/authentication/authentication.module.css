@@ -54,6 +54,11 @@
     margin-bottom: 24px;
 }
 
-.password_reqs {
+.password_reqs,
+.login_failure {
     font: var(--font-body-sm);
+}
+
+.login_failure {
+    color: var(--clr-red);
 }
