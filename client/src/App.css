@@ -22,9 +22,10 @@ label::after {
     color: var(--clr-red);
     bottom: 15px;
     pointer-events: none;
+    font: var(--font-body-sm);
 }
 
-label:has(input[type='email'].invalid)::after,
+label:has(input.invalid)::after,
 label:has(input[data-url='true'].invalid)::after {
     content: 'Can\'t be empty';
 }

@@ -18,9 +18,20 @@ export default function Profile() {
     } = useContext(DataContext)
 
     const {
+        validateInput,
         submitForm,
         success
     } = useForm()
+
+    const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        updateFirstName(e.target.value)
+        validateInput(e)
+    }
+
+    const handleLastNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        updateLastName(e.target.value)
+        validateInput(e)
+    }
 
     const handleSave = () => {
 
@@ -103,7 +114,7 @@ export default function Profile() {
                             id="first-name"
                             placeholder='e.g. John'
                             value={userData.firstName}
-                            onChange={e => updateFirstName(e.target.value)}
+                            onChange={handleFirstNameChange}
                             required
                         />
 
@@ -121,7 +132,7 @@ export default function Profile() {
                             id="last-name"
                             placeholder='e.g. Appleseed'
                             value={userData.lastName}
-                            onChange={e => updateLastName(e.target.value)}
+                            onChange={handleLastNameChange}
                             required
                         />
 
