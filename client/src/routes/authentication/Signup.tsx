@@ -31,7 +31,7 @@ export default function Signup() {
 
     const navigate = useNavigate()
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
 
         if (
@@ -40,7 +40,7 @@ export default function Signup() {
             !passwordConfirmRef.current
         ) return
 
-        const success = signup(
+        const success = await signup(
             emailRef.current.value,
             passwordRef.current.value,
             passwordConfirmRef.current.value

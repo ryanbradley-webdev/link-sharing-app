@@ -162,12 +162,12 @@ export default function DataProvider({ children }: { children: ReactNode }) {
         setLinkOrder(links.map(link => link.id))
     }, [links])
 
-    useEffect(() => {
+    /* useEffect(() => {
         if (user) {
             setLinks(user.links)
             setUserData(user.userData)
         }
-    }, [user])
+    }, [user]) */
 
     return (
         <DataContext.Provider value={value}>
