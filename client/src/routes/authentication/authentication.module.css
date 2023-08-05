@@ -54,6 +54,10 @@
     margin-bottom: 24px;
 }
 
+.form > p:not(:first-of-type) {
+    margin-top: -20px;
+}
+
 .password_reqs,
 .login_failure {
     font: var(--font-body-sm);

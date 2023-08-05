@@ -1,25 +1,35 @@
-import { useRef } from "react"
-import { Link } from "react-router-dom"
+import { useRef, useContext } from "react"
+import { Link, useNavigate } from "react-router-dom"
 import DevlinksLogoLg from "../../assets/DevlinksLogoLg"
 import Button from "../../components/button/Button"
 import EmailIcon from "../../assets/EmailIcon"
 import LockIcon from "../../assets/LockIcon"
 import styles from './authentication.module.css'
 import useForm from "../../hooks/useForm"
+import { AuthContext } from "../../contexts/AuthContext"
 
 export default function Signup() {
+    const {
+        signup,
+        passwordMismatch,
+        shortPassword,
+        signupError
+    } = useContext(AuthContext)
+
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
     const passwordConfirmRef = useRef<HTMLInputElement>(null)
 
     const {
         validateInput,
-        validateForm
+        validateForm,
     } = useForm([
         emailRef,
         passwordRef,
         passwordConfirmRef
     ])
+
+    const navigate = useNavigate()
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -29,6 +39,16 @@ export default function Signup() {
             !passwordRef.current ||
             !passwordConfirmRef.current
         ) return
+
+        const success = signup(
+            emailRef.current.value,
+            passwordRef.current.value,
+            passwordConfirmRef.current.value
+        )
+
+        if (success) {
+            navigate('/')
+        }
     }
 
     return (
@@ -114,14 +134,22 @@ export default function Signup() {
                     
                 </label>
 
-                <p className={styles.password_reqs}>
+                <p className={shortPassword ? styles.login_failure : styles.password_reqs}>
                     Password must contain at least 8 characters
                 </p>
+
+                {passwordMismatch && <p className={styles.login_failure}>
+                    Passwords do not match
+                </p>}
+
+                {signupError && <p className={styles.login_failure}>
+                    Failed to create account
+                </p>}
 
                 <Button
                     onClick={validateForm}
                 >
-                    Create new account
+                    {signupError ? 'Something went wrong' : 'Create new account'}
                 </Button>
 
             </form>

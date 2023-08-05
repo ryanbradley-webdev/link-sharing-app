@@ -117,7 +117,7 @@ export default function Login() {
                 <Button
                     onClick={validateForm}
                 >
-                    Login
+                    {loginError ? 'Something went wrong' : 'Login'}
                 </Button>
 
             </form>
