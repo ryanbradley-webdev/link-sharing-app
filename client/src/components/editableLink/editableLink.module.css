@@ -43,6 +43,11 @@
     background-color: transparent;
     padding-right: 8px;
     height: 100%;
+    cursor: grab;
+}
+
+.link_wrapper[data-copy='true'] .drag_btn {
+    cursor: grabbing;
 }
 
 .input > svg {

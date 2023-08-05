@@ -47,8 +47,22 @@ export default function useForm(inputs?: React.RefObject<HTMLInputElement>[]) {
 
     const submitForm = () => {
         setSubmitting(false)
-        setSuccess(true)
-        setError(false)
+        
+        try {
+            setSuccess(true)
+
+            setTimeout(() => {
+                setSuccess(false)
+            }, 3500)
+        } catch (e) {
+            setError(true)
+
+            setTimeout(() => {
+                setError(false)
+            }, 3500)
+        } finally {
+            setSubmitting(false)
+        }
     }
 
     return {

@@ -32,6 +32,10 @@ body {
   color: var(--clr-light-grey);
 }
 
+body:has(div[data-copy='true']) {
+  cursor: grabbing;
+}
+
 h1,
 h2,
 h3 {
