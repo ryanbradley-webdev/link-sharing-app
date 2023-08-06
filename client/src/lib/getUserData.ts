@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { dataIsUserData } from './typeCheck'
+import { dataIsUserInfo } from './typeCheck'
 
 export const getUserData = async (userId: string) => {
     const apiUrl =
@@ -11,37 +11,34 @@ export const getUserData = async (userId: string) => {
         return null
     }
 
-    const res = await axios.get(apiUrl + 'userData', {
+    const userData: UserData = {
+        userInfo: {
+            firstName: '',
+            lastName: '',
+            email: '',
+            image: ''
+        },
+        links: []
+    }
+
+    const res = await axios.get(apiUrl, {
         params: {
             userId
         }
     })
 
-    if (res && res.status === 200) {
-        const { userData } = res.data
+    if (res && !res.data.error) {
+        const { userInfo, links } = res.data
 
-        if (userData.length !== 1) return null
-
-        if (dataIsUserData(userData[0])) {
-
-            const {
-                firstName,
-                lastName,
-                email,
-                image,
-                links
-            } = userData[0]
-
-            return {
-                userInfo: {
-                    firstName,
-                    lastName,
-                    email,
-                    image
-                },
-                links
-            }
+        if (dataIsUserInfo(userInfo)) {
+            userData.userInfo = userInfo
         }
+
+        if (links.length > 0) {
+            userData.links = links
+        }
+
+        return userData
     } else {
         return null
     }

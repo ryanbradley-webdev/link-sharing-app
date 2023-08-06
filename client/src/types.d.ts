@@ -48,7 +48,8 @@ type UserInfo = {
     image: string
 }
 
-type UserData = UserInfo & {
+type UserData = {
+    userInfo: UserInfo
     links: Link[]
 }
 

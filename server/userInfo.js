@@ -29,7 +29,13 @@ router.get('/', async (req, res) => {
     }
 
     try {
-        const { data, error } = await supabase.from('userData').select().filter('userId', 'eq', userId)
+        const {
+            data,
+            error
+        } = await supabase
+            .from('userData')
+            .select('firstName, lastName, email, profileImg')
+            .filter('userId', 'eq', userId)
 
         if (error) {
             responseData.error = error
