@@ -35,11 +35,46 @@ export default function Footer() {
 
             <div className={styles.stack}>
 
-                <img src={React} alt="" width={30} height={30} />
-                <img src={TypeScript} alt="" width={30} height={30} />
-                <img src={Node} alt="" width={30} height={30} />
-                <img src={Supabase} alt="" width={30} height={30} />
-                <img src={Postgres} alt="" width={30} height={30} />
+                <Link
+                    to='https://react.dev/'
+                    target='_blank'
+                    rel='noopener nofollower'
+                >
+                    <img src={React} alt="" width={30} height={30} title='React.js' />
+                </Link>
+
+                <Link
+                    to='https://www.typescriptlang.org/'
+                    target='_blank'
+                    rel='noopener nofollower'
+                >
+                    <img src={TypeScript} alt="" width={30} height={30} title='TypeScript' />
+                </Link>
+
+                <Link
+                    to='https://nodejs.org/en'
+                    target='_blank'
+                    rel='noopener nofollower'
+                >
+                    <img src={Node} alt="" width={30} height={30} title='Node.js' />
+                </Link>
+
+                <Link
+                    to='https://supabase.com/'
+                    target='_blank'
+                    rel='noopener nofollower'
+                >
+                    <img src={Supabase} alt="" width={30} height={30} title='Supabase' />
+                </Link>
+
+                <Link
+                    to='https://www.postgresql.org/'
+                    target='_blank'
+                    rel='noopener nofollower'
+                >
+                    <img src={Postgres} alt="" width={30} height={30} title='PostgreSQL' />
+                </Link>
+
 
             </div>
             
