@@ -1,5 +1,43 @@
-.footer {
+.footer,
+.credits,
+.credits > div {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    padding: 20px;
+}
+
+.footer {
+    gap: 12px;
+    padding: 32px;
+    border-top: 1px solid var(--clr-border);
+    box-shadow: 0 -3px 8px var(--clr-purple-shadow);
+}
+
+.credits {
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.stack {
+    display: flex;
+    gap: 12px;
+}
+
+@media screen and (min-width: 769px) {
+    .credits {
+        flex-direction: row;
+        gap: 48px;
+    }
+
+    .credits > div {
+        align-items: flex-start;
+        gap: 0;
+    }
+}
+
+.credits > img {
+    opacity: 0.7;
+    width: 300px;
+    height: auto;
 }
