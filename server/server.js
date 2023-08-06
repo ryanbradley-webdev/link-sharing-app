@@ -4,8 +4,8 @@ const express = require('express')
 const cors = require('cors')
 const { createClient } = require('@supabase/supabase-js')
 
-const linksRouter = require('./links')
-const userInfoRouter = require('./userInfo')
+const linksRouter = require('./routes/links')
+const userInfoRouter = require('./routes/userInfo')
 
 const supabase = createClient(
     process.env.SUPABASE_URL,
