@@ -20,6 +20,66 @@ app.use(cors())
 app.use('/links', linksRouter)
 app.use('/userData', userDataRouter)
 
+app.get('/', async (req, res) => {
+    const { userId } = req.query
+
+    const responseData = {
+        userInfo: null,
+        links: null,
+        error: null
+    }
+
+    if (!userId) {
+        responseData.error = 'No user Id'
+
+        return res.status(400).json(responseData)
+    }
+
+    try {
+        const {
+            data,
+            error
+        } = await supabase.from('userData').select().filter('userId', 'eq', userId)
+
+        if (!data || error) {
+            responseData.error = error?.message || 'No user data found'
+
+            return res.status(404).json(responseData)
+        }
+
+        const userData = data[0]
+
+        if (userData) {
+            const {
+                firstName,
+                lastName,
+                profileImg,
+                email,
+                links
+            } = userData
+
+            responseData.userInfo = {
+                firstName,
+                lastName,
+                email,
+                profileImg
+            }
+
+            responseData.links = links
+
+            return res.json(responseData)
+        } else {
+            responseData.error = 'No user data found'
+
+            return res.status(404).json(responseData)
+        }
+    } catch (e) {
+        responseData.error = e?.message || 'Error fetching data'
+
+        return res.status(500).json(responseData)
+    }
+})
+
 app.post('/signup', async (req, res) => {
     const { email, password } = req.body
 
@@ -45,7 +105,7 @@ app.post('/signup', async (req, res) => {
         })
 
         if (error) {
-            responseData.error = error
+            responseData.error = error.message
 
             return res.json(responseData)
         }
@@ -86,7 +146,7 @@ app.post('/login', async (req, res) => {
         })
 
         if (error) {
-            responseData.error = error
+            responseData.error = error.message
 
             return res.json(responseData)
         }
