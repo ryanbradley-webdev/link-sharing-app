@@ -18,7 +18,7 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/links', linksRouter)
-app.use('/userInfo', userInfoRouter)
+app.use('/user-info', userInfoRouter)
 
 app.get('/', async (req, res) => {
     const { userId } = req.query

@@ -1,7 +1,7 @@
 type DataContext = {
     links: Link[]
     userInfo: UserInfo
-    uploadedImg: string
+    imgPreviewPath: string
     addLink: () => void
     removeLink: (id: string) => void
     updateLink: (updatedLink: Link) => void
@@ -17,7 +17,7 @@ type DataContext = {
 
 type AuthContext = {
     user: null | User
-    session: unknown
+    session: Session | null
     login: (email: string, password: string) => Promise<boolean>
     signup: (email: string, password: string, passwordConfirm: string) => Promise<boolean>
     loginFailed: boolean
@@ -25,13 +25,6 @@ type AuthContext = {
     signupError: boolean
     passwordMismatch: boolean
     shortPassword: boolean
-}
-
-type User = {
-    id: string
-    email: string
-    userData: UserData
-    links: Link[]
 }
 
 type Link = {

@@ -9,7 +9,7 @@ export default function ProfilePreview({
 }: {
     bare?: boolean
 }) {
-    const { userInfo, links, uploadedImg } = useContext(DataContext)
+    const { userInfo, links, imgPreviewPath } = useContext(DataContext)
 
     return (
         <section
@@ -19,9 +19,9 @@ export default function ProfilePreview({
             <div className={bare ? styles.user_bare : styles.user}>
 
                 {
-                    (uploadedImg || userInfo.profileImg) ? (
+                    (imgPreviewPath || userInfo.profileImg) ? (
                         <img
-                            src={uploadedImg || userInfo.profileImg}
+                            src={imgPreviewPath || userInfo.profileImg}
                             alt=''
                             width={104}
                             height={104}
@@ -30,7 +30,7 @@ export default function ProfilePreview({
                     ) : (
                         <div
                             className={bare ? styles.img_placeholder_bare : styles.img_placeholder}
-                            data-transparent={!uploadedImg || !userInfo.profileImg}
+                            data-transparent={!imgPreviewPath || !userInfo.profileImg}
                         >
 
                             <ImageIcon />

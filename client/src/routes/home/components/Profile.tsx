@@ -10,7 +10,7 @@ import useForm from '../../../hooks/useForm'
 export default function Profile() {
     const {
         userInfo,
-        uploadedImg,
+        imgPreviewPath,
         updateFirstName,
         updateLastName,
         updateEmail,
@@ -68,8 +68,8 @@ export default function Profile() {
                         <div className={styles.img_container}>
 
                             {
-                                (uploadedImg || userInfo.profileImg) && (
-                                    <img src={uploadedImg || userInfo.profileImg} alt="" />
+                                (imgPreviewPath || userInfo.profileImg) && (
+                                    <img src={imgPreviewPath || userInfo.profileImg} alt="" />
                                 )
                             }
 
@@ -82,7 +82,7 @@ export default function Profile() {
                             />
 
                             <div
-                                className={`${styles.img_upload} ${(uploadedImg || userInfo.profileImg) ? styles.img_upload_hidden : ''}`}
+                                className={`${styles.img_upload} ${(imgPreviewPath || userInfo.profileImg) ? styles.img_upload_hidden : ''}`}
                             >
 
                                 <ImageIcon />

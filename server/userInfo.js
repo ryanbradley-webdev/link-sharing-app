@@ -1,7 +1,6 @@
 require('dotenv').config()
 
 const express = require('express')
-const cors = require('cors')
 const { createClient } = require('@supabase/supabase-js')
 
 const supabase = createClient(
@@ -10,9 +9,6 @@ const supabase = createClient(
 )
 
 const router = express.Router()
-
-router.use(express.json())
-router.use(cors())
 
 router.get('/', async (req, res) => {
     const { userId } = req.query

@@ -1,11 +1,12 @@
 import { ReactNode, createContext, useState } from 'react'
 import axios from 'axios'
+import { User, Session } from '@supabase/supabase-js'
 
 export const AuthContext = createContext({} as AuthContext)
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
     const [user, setUser] = useState<User | null>(null)
-    const [session, setSession] = useState(null)
+    const [session, setSession] = useState<Session | null>(null)
     const [loginFailed, setLoginFailed] = useState(false)
     const [loginError, setLoginError] = useState(false)
     const [signupError, setSignupError] = useState(false)

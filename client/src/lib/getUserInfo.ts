@@ -11,7 +11,7 @@ export const getUserInfo = async (userId: string) => {
         return null
     }
 
-    const res = await axios.get(apiUrl + 'userInfo', {
+    const res = await axios.get(apiUrl + 'user-info', {
         params: {
             userId
         }

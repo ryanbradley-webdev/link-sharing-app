@@ -7,6 +7,7 @@ import { getLinks } from '../lib/getLinks'
 import { saveLinks } from '../lib/saveLinks'
 import { getUserInfo } from '../lib/getUserInfo'
 import { saveUserInfo } from '../lib/saveUserInfo'
+import { uploadImg } from '../lib/uploadImg'
 
 const blankLink = {
     platform: PLATFORMS.GITHUB,
@@ -28,7 +29,8 @@ export default function DataProvider({ children }: { children: ReactNode }) {
 
     const [links, setLinks] = useState<Link[]>([])
     const [userInfo, setUserInfo] = useState<UserInfo>(blankUser)
-    const [uploadedImg, setUploadedImg] = useState<string>('')
+    const [uploadedImg, setUploadedImg] = useState<File | null>(null)
+    const [imgPreviewPath, setImgPreviewPath] = useState('')
 
     const addLink = () => {
         setLinks(prevLinks => ([
@@ -140,9 +142,12 @@ export default function DataProvider({ children }: { children: ReactNode }) {
         if (!images || images.length === 0) return
 
         const newImg = images[images.length - 1]
+
+        setUploadedImg(newImg)
+
         const imgSrc = URL.createObjectURL(newImg)
 
-        setUploadedImg(imgSrc)
+        setImgPreviewPath(imgSrc)
     }
 
     const loadUserInfo = async () => {
@@ -157,7 +162,15 @@ export default function DataProvider({ children }: { children: ReactNode }) {
 
     const saveUserInfoToDb = async () => {
         if (user) {
-            await saveUserInfo(user.id, userInfo)
+            const profileImgPath =
+                uploadedImg ?
+                await uploadImg(user.id, uploadedImg) :
+                userInfo.profileImg
+
+            await saveUserInfo(user.id, {
+                ...userInfo,
+                profileImg: profileImgPath || ''
+            })
 
             loadUserInfo()
 
@@ -168,7 +181,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
     const value = {
         links,
         userInfo,
-        uploadedImg,
+        imgPreviewPath,
         addLink,
         removeLink,
         updateLink,
