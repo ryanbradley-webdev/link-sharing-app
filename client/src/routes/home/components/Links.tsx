@@ -9,18 +9,24 @@ import Toast from '../../../components/toast/Toast'
 import SavedIcon from '../../../assets/SavedIcon'
 
 export default function Links() {
-    const { links, addLink, reorderLinks, saveLinksToDb } = useContext(DataContext)
+    const {
+        links,
+        addLink,
+        reorderLinks,
+        saveLinksToDb
+    } = useContext(DataContext)
 
     const [dragIdx, setDragIdx] = useState<null | number>(null)
     const [targetLink, setTargetLink] = useState<null | Link>(null)
-    const [success, setSuccess] = useState(false)
 
     const linksRef = useRef<HTMLDivElement>(null)
     const copyRef = useRef<HTMLDivElement>(null)
 
     const {
-        validateURL
-    } = useForm()
+        validateURL,
+        submitForm,
+        success
+    } = useForm(saveLinksToDb)
 
     const dragEventListener = (e: MouseEvent) => {
         const mousePosition = e.clientY
@@ -95,14 +101,7 @@ export default function Links() {
             return
         }
 
-        saveLinksToDb()
-            .then(() => {
-                setSuccess(true)
-
-                setTimeout(() => {
-                    setSuccess(false)
-                }, 3500)
-            })
+        submitForm()
     }
 
     useEffect(() => {

@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { urlIsValid } from "../lib/urlValidator"
 
-export default function useForm(inputs?: React.RefObject<HTMLInputElement>[]) {
+export default function useForm(
+    submitFn: (() => Promise<null | undefined>) | null
+) {
     const [submitting, setSubmitting] = useState(false)
     const [success, setSuccess] = useState(false)
     const [error, setError] = useState(false)
@@ -16,16 +18,6 @@ export default function useForm(inputs?: React.RefObject<HTMLInputElement>[]) {
         } else {
             e.target.classList.remove('invalid')
         }
-    }
-
-    const validateForm = () => {
-        inputs?.forEach(input => {
-            if (!input.current) return
-
-            if (!input.current.value) {
-                input.current.classList.add('invalid')
-            }
-        })
     }
 
     const validateURL = (link: Link) => {
@@ -45,28 +37,28 @@ export default function useForm(inputs?: React.RefObject<HTMLInputElement>[]) {
     }
 
     const submitForm = () => {
-        setSubmitting(false)
-        
-        try {
-            setSuccess(true)
+        if (submitFn == null) return
 
-            setTimeout(() => {
-                setSuccess(false)
-            }, 3500)
-        } catch (e) {
-            setError(true)
+        setError(false)
+        setSubmitting(true)
 
-            setTimeout(() => {
-                setError(false)
-            }, 3500)
-        } finally {
-            setSubmitting(false)
-        }
+        submitFn()
+            .then(() => {
+                setSubmitting(false)
+                setSuccess(true)
+
+                setTimeout(() => {
+                    setSuccess(false)
+                }, 3500)
+            })
+            .catch(() => {
+                setSubmitting(false)
+                setError(true)
+            })
     }
 
     return {
         validateInput,
-        validateForm,
         validateURL,
         submitForm,
         submitting,

@@ -37,7 +37,7 @@ export default function EditableLink({
 
   const {
     validateInput
-  } = useForm([linkRef])
+  } = useForm(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     validateInput(e)
