@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import ImageIcon from '../../../assets/ImageIcon'
 import Button from '../../../components/button/Button'
 import { DataContext } from '../../../contexts/DataContext'
@@ -14,13 +14,15 @@ export default function Profile() {
         updateFirstName,
         updateLastName,
         updateEmail,
-        previewImg
+        previewImg,
+        saveUserInfoToDb
     } = useContext(DataContext)
+
+    const [success, setSuccess] = useState(false)
 
     const {
         validateInput,
-        submitForm,
-        success
+        validateForm
     } = useForm()
 
     const handleFirstNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,8 +36,18 @@ export default function Profile() {
     }
 
     const handleSave = () => {
+        validateForm()
 
-        submitForm()
+        if (!userInfo.firstName || !userInfo.lastName) return
+
+        saveUserInfoToDb()
+            .then(() => {
+                setSuccess(true)
+
+                setTimeout(() => {
+                    setSuccess(false)
+                }, 3500)
+            })
     }
 
     return (
@@ -79,7 +91,7 @@ export default function Profile() {
                             />
 
                             <div
-                                className={`${styles.img_upload} ${(uploadedImg || userInfo.image) ? styles.img_upload_hidden : ''}`}
+                                className={`${styles.img_upload} ${(uploadedImg || userInfo.profileImg) ? styles.img_upload_hidden : ''}`}
                             >
 
                                 <ImageIcon />

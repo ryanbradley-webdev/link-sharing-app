@@ -10,7 +10,7 @@ export const saveUserInfo = async (userId: string, userInfo: UserInfo) => {
         return null
     }
 
-    const res = await axios.patch(apiUrl + 'links', {
+    const res = await axios.patch(apiUrl + 'userInfo', {
         userId,
         userInfo
     }) 
