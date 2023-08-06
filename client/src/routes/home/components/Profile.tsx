@@ -9,7 +9,7 @@ import useForm from '../../../hooks/useForm'
 
 export default function Profile() {
     const {
-        userData,
+        userInfo,
         uploadedImg,
         updateFirstName,
         updateLastName,
@@ -66,8 +66,8 @@ export default function Profile() {
                         <div className={styles.img_container}>
 
                             {
-                                (uploadedImg || userData.image) && (
-                                    <img src={uploadedImg || userData.image} alt="" />
+                                (uploadedImg || userInfo.profileImg) && (
+                                    <img src={uploadedImg || userInfo.profileImg} alt="" />
                                 )
                             }
 
@@ -79,7 +79,7 @@ export default function Profile() {
                             />
 
                             <div
-                                className={`${styles.img_upload} ${(uploadedImg || userData.image) ? styles.img_upload_hidden : ''}`}
+                                className={`${styles.img_upload} ${(uploadedImg || userInfo.image) ? styles.img_upload_hidden : ''}`}
                             >
 
                                 <ImageIcon />
@@ -113,7 +113,7 @@ export default function Profile() {
                             name="first-name"
                             id="first-name"
                             placeholder='e.g. John'
-                            value={userData.firstName}
+                            value={userInfo.firstName}
                             onChange={handleFirstNameChange}
                             required
                         />
@@ -131,7 +131,7 @@ export default function Profile() {
                             name="last-name"
                             id="last-name"
                             placeholder='e.g. Appleseed'
-                            value={userData.lastName}
+                            value={userInfo.lastName}
                             onChange={handleLastNameChange}
                             required
                         />
@@ -149,7 +149,7 @@ export default function Profile() {
                             name="email"
                             id="email"
                             placeholder='e.g. email@example.com'
-                            value={userData.email}
+                            value={userInfo.email}
                             onChange={e => updateEmail(e.target.value)}
                             required
                         />
@@ -161,7 +161,7 @@ export default function Profile() {
                 <div className={styles.save_btn_container}>
 
                     <Button
-                        disabled={!userData.firstName || !userData.lastName}
+                        disabled={!userInfo.firstName || !userInfo.lastName}
                         onClick={handleSave}
                     >
                         Save

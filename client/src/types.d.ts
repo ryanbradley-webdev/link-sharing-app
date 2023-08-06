@@ -1,6 +1,6 @@
 type DataContext = {
     links: Link[]
-    userData: UserInfo
+    userInfo: UserInfo
     uploadedImg: string
     addLink: () => void
     removeLink: (id: string) => void
@@ -12,6 +12,7 @@ type DataContext = {
     updateEmail: (newEmail: string) => void
     previewImg: (e: React.ChangeEvent<HTMLInputElement>) => void
     saveLinksToDb: () => Promise<null | undefined>
+    saveUserInfoToDb: () => Promise<null | undefined>
 }
 
 type AuthContext = {
@@ -45,7 +46,7 @@ type UserInfo = {
     firstName: string
     lastName: string
     email: string
-    image: string
+    profileImg: string
 }
 
 type UserData = {

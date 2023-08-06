@@ -5,6 +5,8 @@ import { getUserData } from '../lib/getUserData'
 import { dataIsLink } from '../lib/typeCheck'
 import { getLinks } from '../lib/getLinks'
 import { saveLinks } from '../lib/saveLinks'
+import { getUserInfo } from '../lib/getUserInfo'
+import { saveUserInfo } from '../lib/saveUserInfo'
 
 const blankLink = {
     platform: PLATFORMS.GITHUB,
@@ -16,7 +18,7 @@ const blankUser = {
     firstName: '',
     lastName: '',
     email: '',
-    image: ''
+    profileImg: ''
 }
 
 export const DataContext = createContext({} as DataContext)
@@ -25,7 +27,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
     const { user } = useContext(AuthContext)
 
     const [links, setLinks] = useState<Link[]>([])
-    const [userData, setUserData] = useState<UserInfo>(blankUser)
+    const [userInfo, setUserInfo] = useState<UserInfo>(blankUser)
     const [uploadedImg, setUploadedImg] = useState<string>('')
 
     const addLink = () => {
@@ -112,22 +114,22 @@ export default function DataProvider({ children }: { children: ReactNode }) {
     }
 
     const updateFirstName = (newName: string) => {
-        setUserData(prevData => ({
-            ...prevData,
+        setUserInfo(prevInfo => ({
+            ...prevInfo,
             firstName: newName
         }))
     }
 
     const updateLastName = (newName: string) => {
-        setUserData(prevData => ({
-            ...prevData,
+        setUserInfo(prevInfo => ({
+            ...prevInfo,
             lastName: newName
         }))
     }
 
     const updateEmail = (newEmail: string) => {
-        setUserData(prevData => ({
-            ...prevData,
+        setUserInfo(prevInfo => ({
+            ...prevInfo,
             email: newEmail
         }))
     }
@@ -143,9 +145,29 @@ export default function DataProvider({ children }: { children: ReactNode }) {
         setUploadedImg(imgSrc)
     }
 
+    const loadUserInfo = async () => {
+        if (user) {
+            const userInfo = await getUserInfo(user.id)
+
+            if (userInfo) {
+                setUserInfo(userInfo)
+            }
+        }
+    }
+
+    const saveUserInfoToDb = async () => {
+        if (user) {
+            await saveUserInfo(user.id, userInfo)
+
+            loadUserInfo()
+
+            return null
+        }
+    }
+
     const value = {
         links,
-        userData,
+        userInfo,
         uploadedImg,
         addLink,
         removeLink,
@@ -156,7 +178,8 @@ export default function DataProvider({ children }: { children: ReactNode }) {
         updateLastName,
         updateEmail,
         previewImg,
-        saveLinksToDb
+        saveLinksToDb,
+        saveUserInfoToDb
     }
 
     useEffect(() => {
@@ -168,7 +191,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
 
                 const { userInfo, links } = data
     
-                setUserData(userInfo)
+                setUserInfo(userInfo)
 
                 const formattedLinks: Link[] = links.filter((link: unknown) => dataIsLink(link))
                 

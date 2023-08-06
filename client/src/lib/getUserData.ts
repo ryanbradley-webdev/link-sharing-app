@@ -16,7 +16,7 @@ export const getUserData = async (userId: string) => {
             firstName: '',
             lastName: '',
             email: '',
-            image: ''
+            profileImg: ''
         },
         links: []
     }
