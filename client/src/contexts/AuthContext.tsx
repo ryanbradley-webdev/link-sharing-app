@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useState } from 'react'
+import { ReactNode, createContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { User, Session } from '@supabase/supabase-js'
 
@@ -107,6 +107,18 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         passwordMismatch,
         shortPassword
     }
+
+    useEffect(() => {
+        const userSession = sessionStorage.getItem('user')
+
+        if (userSession && !user) {
+            setUser(JSON.parse(userSession))
+        }
+
+        if (user) {
+            sessionStorage.setItem('user', JSON.stringify(user))
+        }
+    }, [user])
 
     return (
         <AuthContext.Provider value={value}>

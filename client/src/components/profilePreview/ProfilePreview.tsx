@@ -13,10 +13,10 @@ export default function ProfilePreview({
 }) {
     const { userInfo, links, imgPreviewPath } = useContext(DataContext)
 
-    const firstName = userData?.userInfo.firstName || userInfo.firstName
-    const lastName = userData?.userInfo.lastName || userInfo.lastName
-    const email = userData?.userInfo.email || userInfo.email
-    const profileImg = userData?.userInfo.profileImg || userInfo.profileImg
+    const firstName = userData?.userInfo.firstName || userInfo?.firstName
+    const lastName = userData?.userInfo.lastName || userInfo?.lastName
+    const email = userData?.userInfo.email || userInfo?.email
+    const profileImg = userData?.userInfo.profileImg || userInfo?.profileImg
     const displayLinks = userData?.links || links
 
     return (
