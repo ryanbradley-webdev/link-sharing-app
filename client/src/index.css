@@ -28,6 +28,7 @@
 }
 
 body {
+  position: relative;
   font: var(--font-body-md);
   color: var(--clr-light-grey);
 }

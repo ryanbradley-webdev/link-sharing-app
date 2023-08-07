@@ -1,18 +1,29 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Button from '../../components/button/Button'
 import styles from './preview.module.css'
 import ProfilePreview from '../../components/profilePreview/ProfilePreview'
 import Toast from '../../components/toast/Toast'
 import LinksIconHeader from '../../assets/LinksIconHeader'
+import { AuthContext } from '../../contexts/AuthContext'
 
 export default function Preview() {
+    const { user } = useContext(AuthContext)
+
     const [linkCopied, setLinkCopied] = useState(false)
 
     const navigate = useNavigate()
 
     const copyLink = () => {
-        setLinkCopied(true)
+        if (user) {
+            navigator.clipboard.writeText(`http://localhost:5173/${user.id}`)
+
+            setLinkCopied(true)
+
+            setTimeout(() => {
+                setLinkCopied(false)
+            }, 3500)
+        }
     }
 
     return (

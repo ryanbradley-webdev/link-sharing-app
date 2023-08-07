@@ -24,7 +24,11 @@ export const getLinks = async (userId: string) => {
 
         links.forEach((link: unknown) => {
             if (dataIsLink(link)) {
-                verifiedLinks.push(link)
+                verifiedLinks.push({
+                    ...link,
+                    id: crypto.randomUUID(),
+                    inputRef: null
+                })
             }
         })
 

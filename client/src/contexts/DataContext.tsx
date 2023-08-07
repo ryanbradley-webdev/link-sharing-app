@@ -2,7 +2,6 @@ import { ReactNode, createContext, useEffect, useState, useContext } from 'react
 import { PLATFORMS } from '../lib/platforms'
 import { AuthContext } from './AuthContext'
 import { getUserData } from '../lib/getUserData'
-import { dataIsLink } from '../lib/typeCheck'
 import { getLinks } from '../lib/getLinks'
 import { saveLinks } from '../lib/saveLinks'
 import { getUserInfo } from '../lib/getUserInfo'
@@ -74,11 +73,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
         if (user) {
             const links = await getLinks(user.id)
 
-            setLinks(links.map(link => ({
-                ...link,
-                id: crypto.randomUUID(),
-                inputRef: null
-            })))
+            setLinks(links)
         }
     }
 
@@ -206,13 +201,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
     
                 setUserInfo(userInfo)
 
-                const formattedLinks: Link[] = links.filter((link: unknown) => dataIsLink(link))
-                
-                setLinks(formattedLinks.map(link => ({
-                    ...link,
-                    id: crypto.randomUUID(),
-                    inputRef: null
-                })))
+                setLinks(links)
             }
         }
 

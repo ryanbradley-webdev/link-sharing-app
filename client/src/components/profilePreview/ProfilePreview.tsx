@@ -5,11 +5,19 @@ import styles from './profilePreview.module.css'
 import { DataContext } from "../../contexts/DataContext";
 
 export default function ProfilePreview({
-    bare
+    bare,
+    userData
 }: {
-    bare?: boolean
+    bare?: boolean,
+    userData?: UserData | null | undefined
 }) {
     const { userInfo, links, imgPreviewPath } = useContext(DataContext)
+
+    const firstName = userData?.userInfo.firstName || userInfo.firstName
+    const lastName = userData?.userInfo.lastName || userInfo.lastName
+    const email = userData?.userInfo.email || userInfo.email
+    const profileImg = userData?.userInfo.profileImg || userInfo.profileImg
+    const displayLinks = userData?.links || links
 
     return (
         <section
@@ -19,9 +27,9 @@ export default function ProfilePreview({
             <div className={bare ? styles.user_bare : styles.user}>
 
                 {
-                    (imgPreviewPath || userInfo.profileImg) ? (
+                    (imgPreviewPath || profileImg) ? (
                         <img
-                            src={imgPreviewPath || userInfo.profileImg}
+                            src={imgPreviewPath || profileImg}
                             alt=''
                             width={104}
                             height={104}
@@ -30,7 +38,7 @@ export default function ProfilePreview({
                     ) : (
                         <div
                             className={bare ? styles.img_placeholder_bare : styles.img_placeholder}
-                            data-transparent={!imgPreviewPath || !userInfo.profileImg}
+                            data-transparent={!imgPreviewPath || !profileImg}
                         >
 
                             <ImageIcon />
@@ -44,22 +52,22 @@ export default function ProfilePreview({
                 }
 
                 <h2
-                    data-transparent={!userInfo.firstName && !userInfo.lastName}
+                    data-transparent={!firstName && !lastName}
                 >
-                    {userInfo.firstName + ' ' + userInfo.lastName}
+                    {firstName + ' ' + lastName}
                 </h2>
 
                 <p
-                    data-transparent={!userInfo.email}
+                    data-transparent={!email}
                 >
-                    {userInfo.email}
+                    {email}
                 </p>
 
             </div>
 
             <div className={styles.link_list}>
 
-                {links.length > 0 && links.map((link, idx) => {
+                {displayLinks.length > 0 && displayLinks.map((link, idx) => {
                     if (!bare || idx < 5) {
                         return (
                             <PreviewLink

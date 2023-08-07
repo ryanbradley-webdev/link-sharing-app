@@ -1,0 +1,15 @@
+.main {
+    min-height: calc(100vh - 28px);
+    min-height: calc(100dvh - 28px);
+}
+
+.background {
+    position: absolute;
+    top: 46px;
+    background-color: var(--clr-purple-pri);
+    height: 357px;
+    width: 100%;
+    z-index: -1;
+    border-bottom-left-radius: 32px;
+    border-bottom-right-radius: 32px;
+}

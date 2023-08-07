@@ -1,7 +1,7 @@
 import axios from 'axios'
-import { dataIsUserInfo } from './typeCheck'
+import { dataIsLink, dataIsUserInfo } from './typeCheck'
 
-export const getUserData = async (userId: string) => {
+export const getUserData = async (userId: string | undefined) => {
     const apiUrl =
         import.meta.env.VITE_ENVIRONMENT === 'development' ?
         import.meta.env.VITE_DEV_API_URL :
@@ -35,7 +35,15 @@ export const getUserData = async (userId: string) => {
         }
 
         if (links.length > 0) {
-            userData.links = links
+            userData.links = links.map((link: unknown) => {
+                if (dataIsLink(link)) {
+                    return ({
+                        ...link,
+                        id: crypto.randomUUID(),
+                        inputRef: null
+                    })
+                }
+            })
         }
 
         return userData
