@@ -31,7 +31,6 @@ This is a solution to the [Link-sharing app challenge on Frontend Mentor](https:
   - [Continued development](#continued-development)
   - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -216,16 +215,14 @@ label:has(input[type='text'][data-valid-url='false'])::after {
 
 ### Continued development
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+For this project and future projects, I'll be researching more and better methods of user authentication and security for my applications. I plan on implementing a JWT-based Row Level security for the database and utilizing it for future projects to ensure the best possible security for my users.
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+Additionally, the drag-and-drop function for user's links is still not optimized for mobile. I plan on investigating and implementing a better method for this in the future.
 
 ### Useful resources
 
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+- [React DnD](https://react-dnd.github.io/react-dnd/about) - This library for drag and drop components in React inspired my implementation for draggable elements heavily. Although I chose to find my own method, the way that this library accomplishes it very much influenced my decisions and methodology.
+- [React Hot Toast](https://react-hot-toast.com/) - Another library that influenced my design decisions, this library handles notifications ('toast') which inspired my own implementation. Again, I chose to go my own route and figure out my own solution, however this library provided the starting point for my solutions.
 
 ## Author
 
@@ -234,9 +231,3 @@ Use this section to outline areas that you want to continue focusing on in futur
 - Portfolio - [ryanbradleyportfolio.com](https://ryanbradleyportfolio.com)
 - Frontend Mentor - [@ryanbradley-webdev](https://www.frontendmentor.io/profile/ryanbradley-webdev)
 - Instagram - [@ryanbradley_web_dev](https://www.instagram.com/ryanbradley_web_dev/)
-
-## Acknowledgments
-
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
-
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
