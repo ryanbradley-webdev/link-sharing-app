@@ -80,6 +80,23 @@ app.get('/', async (req, res) => {
     }
 })
 
+async function insertUser(userId) {
+    const {
+        error
+    } = await supabase
+        .from('userData')
+        .insert({
+            firstName: '',
+            lastName: '',
+            profileImg: '',
+            userId,
+            email: '',
+            links: []
+        })
+
+    return error ? false : true
+}
+
 app.post('/signup', async (req, res) => {
     const { email, password } = req.body
 
@@ -110,10 +127,18 @@ app.post('/signup', async (req, res) => {
             return res.json(responseData)
         }
 
-        responseData.user = data.user
-        responseData.session = data.session
+        const userInserted = await insertUser(data.user.id)
 
-        return res.status(201).json(responseData)
+        if (userInserted) {
+            responseData.user = data.user
+            responseData.session = data.session
+
+            return res.status(201).json(responseData)
+        } else {
+            responseData.error = 'Failed to create account'
+
+            res.status(424).json(responseData)
+        }
     } catch (e) {
         responseData.error = e
 
