@@ -1,3 +1,5 @@
+const {onRequest} = require("firebase-functions/v2/https");
+
 require('dotenv').config()
 
 const express = require('express')
@@ -195,4 +197,7 @@ app.post('/login', async (req, res) => {
     }
 })
 
-app.listen(3000, () => console.log('Server listening on port 3000'))
+// app.listen(3000, () => console.log('Server listening on port 3000'))
+
+
+exports.app = onRequest(app);
