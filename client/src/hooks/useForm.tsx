@@ -21,7 +21,7 @@ export default function useForm(
     }
 
     const validateURL = (link: Link) => {
-        if (!link.inputRef?.current) return
+        if (!link.inputRef?.current) return false
 
         const input = link.inputRef.current
 

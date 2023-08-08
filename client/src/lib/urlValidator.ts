@@ -10,7 +10,7 @@ export const generateMatchExp = (platform: string) => {
             return 'https://www.frontendmentor.io/profile/'
 
         case PLATFORMS.TWITTER:
-            return 'https//twitter.com/'
+            return 'https://twitter.com/'
 
         case PLATFORMS.LINKEDIN:
             return 'https://www.linkedin.com/in/'
