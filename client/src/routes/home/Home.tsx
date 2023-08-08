@@ -36,13 +36,17 @@ export default function Home() {
 
                 <main className={styles.main}>
 
-                    <section className={styles.snapshot}>
+                    <section className={styles.snapshot_wrapper}>
 
-                        <Phone />
+                        <div className={styles.snapshot}>
 
-                        <ProfilePreview
-                            bare
-                        />
+                            <Phone />
+
+                            <ProfilePreview
+                                bare
+                            />
+
+                        </div>
 
                     </section>
 
