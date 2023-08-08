@@ -29,6 +29,19 @@
     border: none;
 }
 
+.nav_btn span,
+.nav_btn path {
+    transition: all 0.2s ease;
+}
+
+.nav_btn:is(:hover, :focus) span {
+    color: var(--clr-purple-pri);
+}
+
+.nav_btn:is(:hover, :focus) path {
+    fill: var(--clr-purple-pri);
+}
+
 .preview_btn button {
     display: flex;
     align-items: center;
