@@ -1,9 +1,10 @@
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import DevlinksLogoLg from '../../assets/DevlinksLogoLg'
 import ProfilePreview from '../../components/profilePreview/ProfilePreview'
 import styles from './user.module.css'
 import { useQuery } from '@tanstack/react-query'
 import { getUserData } from '../../lib/getUserData'
+import Button from '../../components/button/Button'
 
 export default function User() {
     const { user } = useParams()
@@ -17,9 +18,19 @@ export default function User() {
 
     return (
         <>
-            <header>
+            <header className={styles.header}>
 
                 <DevlinksLogoLg />
+
+                <Link
+                    to='/signup'
+                >
+
+                    <Button alt>
+                        Create Your Own!
+                    </Button>
+
+                </Link>
 
             </header>
 
@@ -31,9 +42,21 @@ export default function User() {
                     userData={data}
                 />
 
+                <section className={styles.ad}>
+
+                    <p>
+                        Want to show off your own social links?
+                    </p>
+
+                    <p>
+                        Create a free account <Link to='/signup'>here!</Link>
+                    </p>
+
+                </section>
+
             </main>
 
-            <footer>
+            <footer className={styles.footer}>
 
                 &copy; FrontendMentor.io
 
