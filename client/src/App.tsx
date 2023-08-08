@@ -21,7 +21,7 @@ function App() {
             <Route path='/preview' element={<Preview />} />
             <Route path='/login' element={<Login />} />
             <Route path='/signup' element={<Signup />} />
-            <Route path='/:user' element={<User />} />
+            <Route path='/:userSlug' element={<User />} />
           </Routes>
         </DataProvider>
       </AuthProvider>

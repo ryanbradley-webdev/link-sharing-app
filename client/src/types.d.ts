@@ -1,6 +1,7 @@
 type DataContext = {
     links: Link[]
     userInfo: UserInfo
+    slug: string
     imgPreviewPath: string
     addLink: () => void
     removeLink: (id: string) => void
@@ -45,6 +46,7 @@ type UserInfo = {
 type UserData = {
     userInfo: UserInfo
     links: Link[]
+    slug: string
 }
 
 type APIData = unknown[] | unknown

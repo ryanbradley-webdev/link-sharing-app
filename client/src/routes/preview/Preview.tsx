@@ -6,9 +6,11 @@ import ProfilePreview from '../../components/profilePreview/ProfilePreview'
 import Toast from '../../components/toast/Toast'
 import LinksIconHeader from '../../assets/LinksIconHeader'
 import { AuthContext } from '../../contexts/AuthContext'
+import { DataContext } from '../../contexts/DataContext'
 
 export default function Preview() {
     const { user } = useContext(AuthContext)
+    const { slug } = useContext(DataContext)
 
     const [linkCopied, setLinkCopied] = useState(false)
 
@@ -16,7 +18,7 @@ export default function Preview() {
 
     const copyLink = () => {
         if (user) {
-            navigator.clipboard.writeText(`http://localhost:5173/${user.id}`)
+            navigator.clipboard.writeText(`http://localhost:5173/${slug}`)
 
             setLinkCopied(true)
 

@@ -1,13 +1,13 @@
 import axios from 'axios'
 import { dataIsLink, dataIsUserInfo } from './typeCheck'
 
-export const getUserData = async (userId: string | undefined) => {
+export const getUserDataBySlug = async (userSlug: string | undefined) => {
     const apiUrl =
         import.meta.env.VITE_ENVIRONMENT === 'development' ?
         import.meta.env.VITE_DEV_API_URL :
         import.meta.env.VITE_API_URL
 
-    if (!userId) {
+    if (!userSlug) {
         return null
     }
 
@@ -24,12 +24,12 @@ export const getUserData = async (userId: string | undefined) => {
 
     const res = await axios.get(apiUrl, {
         params: {
-            userId
+            userSlug
         }
     })
 
     if (res && !res.data.error) {
-        const { userInfo, links, slug } = res.data
+        const { userInfo, links } = res.data
 
         if (dataIsUserInfo(userInfo)) {
             userData.userInfo = userInfo
@@ -46,8 +46,6 @@ export const getUserData = async (userId: string | undefined) => {
                 }
             })
         }
-
-        userData.slug = slug
     }
 
     return userData

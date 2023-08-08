@@ -28,6 +28,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
 
     const [links, setLinks] = useState<Link[]>([])
     const [userInfo, setUserInfo] = useState<UserInfo>(blankUser)
+    const [slug, setSlug] = useState('')
     const [uploadedImg, setUploadedImg] = useState<File | null>(null)
     const [imgPreviewPath, setImgPreviewPath] = useState('')
 
@@ -176,6 +177,7 @@ export default function DataProvider({ children }: { children: ReactNode }) {
     const value = {
         links,
         userInfo,
+        slug,
         imgPreviewPath,
         addLink,
         removeLink,
@@ -197,11 +199,13 @@ export default function DataProvider({ children }: { children: ReactNode }) {
 
                 if (!data) return
 
-                const { userInfo, links } = data
+                const { userInfo, links, slug } = data
     
                 setUserInfo(userInfo)
 
                 setLinks(links)
+
+                setSlug(slug)
             }
         }
 

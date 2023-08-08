@@ -3,17 +3,17 @@ import DevlinksLogoLg from '../../assets/DevlinksLogoLg'
 import ProfilePreview from '../../components/profilePreview/ProfilePreview'
 import styles from './user.module.css'
 import { useQuery } from '@tanstack/react-query'
-import { getUserData } from '../../lib/getUserData'
 import Button from '../../components/button/Button'
+import { getUserDataBySlug } from '../../lib/getUserDataBySlug'
 
 export default function User() {
-    const { user } = useParams()
+    const { userSlug } = useParams()
 
     const {
         data
     } = useQuery({
-        queryKey: [`user-${user}`],
-        queryFn: () => getUserData(user)
+        queryKey: [`user-${userSlug}`],
+        queryFn: () => getUserDataBySlug(userSlug)
     })
 
     return (

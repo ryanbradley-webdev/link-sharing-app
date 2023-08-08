@@ -21,25 +21,29 @@ app.use('/links', linksRouter)
 app.use('/user-info', userInfoRouter)
 
 app.get('/', async (req, res) => {
-    const { userId } = req.query
+    const { userId, userSlug } = req.query
 
     const responseData = {
         userInfo: null,
         links: null,
+        slug: null,
         error: null
     }
 
-    if (!userId) {
+    if (!userId && !userSlug) {
         responseData.error = 'No user Id'
 
         return res.status(400).json(responseData)
     }
 
     try {
+        const filterColumn = userSlug ? 'slug' : 'userId'
+        const filterTerm = userSlug ? userSlug : userId
+
         const {
             data,
             error
-        } = await supabase.from('userData').select().filter('userId', 'eq', userId)
+        } = await supabase.from('userData').select().filter(filterColumn, 'eq', filterTerm)
 
         if (!data || error) {
             responseData.error = error?.message || 'No user data found'
@@ -55,7 +59,8 @@ app.get('/', async (req, res) => {
                 lastName,
                 profileImg,
                 email,
-                links
+                links,
+                slug
             } = userData
 
             responseData.userInfo = {
@@ -66,6 +71,8 @@ app.get('/', async (req, res) => {
             }
 
             responseData.links = links
+
+            responseData.slug = slug
 
             return res.json(responseData)
         } else {
@@ -91,7 +98,8 @@ async function insertUser(userId) {
             profileImg: '',
             userId,
             email: '',
-            links: []
+            links: [],
+            slug: userId.slice(0, 10)
         })
 
     return error ? false : true
